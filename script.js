@@ -15,6 +15,14 @@
     { id: '06', emoji: '📱', title: 'التصميم المتجاوب', href: 'lesson-06.html', ready: true },
     { id: '07', emoji: '🎬', title: 'CSS Animations', href: 'lesson-07.html', ready: true },
     { id: '08', emoji: '🏆', title: 'المشروع الشامل', href: 'lesson-08.html', ready: true },
+    { id: '09', emoji: '⚡', title: 'مقدمة إلى JavaScript', href: 'lesson-09.html', ready: true },
+    { id: '10', emoji: '🌳', title: 'JavaScript والـ DOM', href: 'lesson-10.html', ready: true },
+    { id: '11', emoji: '🔢', title: 'المصفوفات والكائنات المتقدمة', href: 'lesson-11.html', ready: true },
+    { id: '12', emoji: '⏳', title: 'البرمجة غير المتزامنة', href: 'lesson-12.html', ready: true },
+    { id: '13', emoji: '💾', title: 'التخزين المحلي في المتصفح', href: 'lesson-13.html', ready: true },
+    { id: '14', emoji: '🏛️', title: 'البرمجة الكائنية OOP', href: 'lesson-14.html', ready: true },
+    { id: '15', emoji: '🔧', title: 'JavaScript المتقدم', href: 'lesson-15.html', ready: true },
+    { id: '16', emoji: '🏆', title: 'مراجعة JavaScript الشاملة والمشروع النهائي', href: 'lesson-16.html', ready: true },
   ];
   window.FEMB_SESSIONS = SESSIONS;
 
@@ -187,8 +195,53 @@
           }).catch(() => showToast('تعذّر النسخ — انسخ يدوياً'));
         });
       }
+      const runBtn = block.querySelector('.run-btn');
+      if (runBtn) {
+        runBtn.addEventListener('click', () => runSandboxed(raw, block));
+      }
     });
     initPreviewButtons();
+  }
+
+  /* ---------- تشغيل الكود في بيئة معزولة (Console وهمية) — لجلسات JavaScript ---------- */
+  function fmtArg(a) {
+    if (typeof a === 'string') return a;
+    if (a === undefined) return 'undefined';
+    try { return JSON.stringify(a, null, 0); } catch (e) { return String(a); }
+  }
+
+  function runSandboxed(code, block) {
+    const outBox = block.querySelector('.output-box');
+    if (!outBox) return;
+    outBox.innerHTML = '<span class="out-label">▍ نتيجة التنفيذ</span>';
+    outBox.classList.add('show');
+
+    const lines = [];
+    const fakeConsole = {
+      log: (...a) => lines.push({ t: 'log', m: a.map(fmtArg).join(' ') }),
+      warn: (...a) => lines.push({ t: 'warn', m: '⚠ ' + a.map(fmtArg).join(' ') }),
+      error: (...a) => lines.push({ t: 'error', m: '✖ ' + a.map(fmtArg).join(' ') }),
+      table: (data) => lines.push({ t: 'log', m: JSON.stringify(data) }),
+      info: (...a) => lines.push({ t: 'log', m: a.map(fmtArg).join(' ') }),
+    };
+
+    try {
+      const fn = new Function('console', '"use strict";\n' + code);
+      fn(fakeConsole);
+      if (lines.length === 0) {
+        lines.push({ t: 'ok', m: '✓ تم تنفيذ الكود بنجاح (لا يوجد ناتج مطبوع عبر console)' });
+      }
+    } catch (err) {
+      lines.push({ t: 'error', m: '✖ خطأ أثناء التنفيذ: ' + err.message });
+    }
+
+    lines.forEach(l => {
+      const div = document.createElement('div');
+      div.className = 'output-line ' + l.t;
+      div.textContent = l.m;
+      outBox.appendChild(div);
+    });
+    outBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   /* ---------- تلوين CSS (بدون مكتبات خارجية) ---------- */
@@ -318,7 +371,15 @@
       '05': 'الأعمدة والصفوف • fr وrepeat وminmax • grid-template-areas',
       '06': 'Media Queries • Mobile-First • الوحدات المرنة',
       '07': 'Transitions • Keyframes • Transform',
-      '08': 'مشروع شامل يجمع HTML وCSS معاً',
+      '08': 'مشروع شامل يجمع HTML وCSS معاً + Git وGitHub Pages',
+      '09': 'المتغيرات • أنواع البيانات • العمليات • التحكم بالتدفق • الدوال',
+      '10': 'تحديد العناصر • التعديل • الإنشاء • الأحداث • To-Do List',
+      '11': 'map • filter • reduce • Destructuring • Spread • Optional Chaining',
+      '12': 'Callbacks • Promises • async/await • Fetch API',
+      '13': 'localStorage • sessionStorage • Cookies • IndexedDB',
+      '14': 'Classes • Encapsulation • Inheritance • Polymorphism',
+      '15': 'ES Modules • Map & Set • Symbol • Iterators • Generators',
+      '16': 'مراجعة شاملة • ES2023/2024 • المشروع النهائي',
     };
     grid.innerHTML = SESSIONS.map(s => {
       const done = !!progress[s.id];
