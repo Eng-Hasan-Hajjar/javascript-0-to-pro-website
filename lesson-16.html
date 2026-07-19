@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجلسة 16 — مراجعة JavaScript الشاملة | Front-End Master Book</title>
+<meta name="description" content="مراجعة JavaScript الشاملة — مراجعة جلسات 9-15 • ES2023/2024 • المشروع النهائي لمرحلة JavaScript">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson-id="16">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span>Front-End Master
+        <small>مسار JavaScript · م. حسن حجار</small>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#lessons">الجلسات</a>
+      <a href="index.html#about">عن المدرب</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" aria-label="تبديل الوضع الليلي">
+        <span class="moon">🌙</span><span class="sun">☀️</span>
+      </button>
+      <button class="icon-btn sidebar-toggle-btn" aria-label="فهرس الجلسات">📑</button>
+      <button class="icon-btn nav-toggle" aria-label="القائمة">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">الرئيسية</a>
+  <a href="index.html#lessons">الجلسات</a>
+  <a href="index.html#about">عن المدرب</a>
+</div>
+
+<div class="lesson-shell">
+  <aside class="sidebar">
+    <div class="sidebar-title">فهرس الجلسات</div>
+    <div data-sidebar-list></div>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill"></div></div>
+      <span></span>
+    </div>
+  </aside>
+
+  <main class="lesson-main">
+    <div class="container">
+      <div class="lesson-header">
+  <div class="top-row">
+    <span class="emoji-badge">🏆</span>
+    <div>
+      <div class="session-tag">Session 16 &middot; 3 Hours</div>
+    </div>
+  </div>
+  <h1>الجلسة السادسة عشرة — مراجعة JavaScript الشاملة</h1>
+  <p class="tags-line">مراجعة جلسات 9-15 • ES2023/2024 • المشروع النهائي لمرحلة JavaScript</p>
+  <div class="author-line">👤 المؤلف: <b>Eng. Hasan Hajjar</b> &nbsp;·&nbsp; Software Engineer &amp; AI Engineer</div>
+</div>
+
+<div class="goals-card">
+  <h2>🎯 أهداف الجلسة السادسة عشرة</h2>
+  <ul class="goal-list"><li>مراجعة جميع مفاهيم JavaScript من الجلسات 9-15 بشكل منظم</li><li>الإجابة على أسئلة المراجعة السريعة بثقة واحترافية</li><li>استخدام أحدث ميزات ES2023 وES2024 في مشاريعه</li><li>فهم Object.groupBy وMap.groupBy وPromise.withResolvers</li><li>تطبيق Array.prototype.toSorted وtoReversed وtoSpliced وwith</li><li>بناء مشروع JavaScript متكامل يجمع كل المفاهيم من الصفر</li><li>تنظيم المشروع باستخدام ES Modules واحترافية عالية</li><li>نشر المشروع النهائي على GitHub Pages</li></ul>
+</div><div class="callout success"><span class="callout-title">🎓 ملخص رحلة JavaScript — جلسات 9 إلى 15</span><p>✔ الجلسة 9:  المتغيرات، أنواع البيانات، العمليات، الدوال، التحكم في التدفق</p><p>✔ الجلسة 10: DOM — تحديد وتعديل العناصر، الأحداث، Event Delegation</p><p>✔ الجلسة 11: Arrays المتقدمة — map, filter, reduce, Destructuring, Spread</p><p>✔ الجلسة 12: Async — Callbacks, Promises, async/await, Fetch API</p><p>✔ الجلسة 13: Web Storage — localStorage, sessionStorage, Cookies</p><p>✔ الجلسة 14: OOP — Classes, Encapsulation, Inheritance, Polymorphism</p><p>✔ الجلسة 15: Advanced — ES Modules, Map/Set, Symbol, Iterators, Generators</p></div>
+<div class="part"><div class="part-head"><span class="p-icon">📋</span><h2>الجزء الأول: مراجعة شاملة — أسئلة وإجابات</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.1</span><h3>مراجعة الجلسة 9: أساسيات JavaScript</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>السؤال</th><th>الإجابة الصحيحة</th></tr></thead><tbody><tr><td>ما الفرق بين const وlet وvar؟</td><td>const: ثابت لا يتغير | let: متغير Block Scope | var: متغير Function Scope (تجنّبه)</td></tr><tr><td>متى تُعيد == النتائج غير المتوقعة؟</td><td>== تُحوّل الأنواع: 0 == false → true | '5' == 5 → true. استخدم === دائماً</td></tr><tr><td>ما الفرق بين null وundefined؟</td><td>null: فارغ متعمد | undefined: لم تُعطَ قيمة. كلاهما falsy</td></tr><tr><td>ما Truthy وFalsy؟</td><td>Falsy: false, 0, '', null, undefined, NaN. كل ما عداها Truthy</td></tr><tr><td>ما الفرق بين Arrow و Function Declaration؟</td><td>Arrow: لا this خاص، لا hoisting كامل | Declaration: hoisted، لها this خاص</td></tr><tr><td>ما هو Closure؟</td><td>دالة داخلية تتذكر متغيرات الدالة الخارجية حتى بعد انتهائها</td></tr><tr><td>ما الفرق بين spread وrest؟</td><td>Spread: ينشر [...arr] | Rest: يجمع function(...args)</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.2</span><h3>مراجعة الجلسة 10: DOM</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>السؤال</th><th>الإجابة</th></tr></thead><tbody><tr><td>ما الفرق بين textContent وinnerHTML؟</td><td>textContent: نص خام آمن من XSS | innerHTML: يُفسَّر كـ HTML (احذر XSS)</td></tr><tr><td>متى تستخدم Event Delegation؟</td><td>للعناصر الديناميكية أو الكثيرة — مستمع واحد على الأب + e.target.closest()</td></tr><tr><td>ما الفرق بين stopPropagation وpreventDefault؟</td><td>stopPropagation: يمنع انتشار الحدث | preventDefault: يمنع السلوك الافتراضي</td></tr><tr><td>ما DOMContentLoaded مقابل load؟</td><td>DOMContentLoaded: HTML جاهز | load: كل شيء (صور/CSS) جاهز</td></tr><tr><td>كيف تُحدّد عنصراً بأكثر من selector؟</td><td>document.querySelector('.card.active') أو querySelectorAll('[data-id]')</td></tr><tr><td>ما الفرق بين className وclassList؟</td><td>className: نص كامل | classList: API واضح (add/remove/toggle/contains)</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.3</span><h3>مراجعة الجلسة 11: Arrays المتقدمة</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// أسئلة شائعة — تأكد أنك تعرف الإجابة فوراً
+
+// 1. ما الفرق بين map وforEach؟
+[1,2,3].map(x =&gt; x*2);    // يُعيد مصفوفة جديدة ✅
+[1,2,3].forEach(x =&gt; x*2); // لا يُعيد شيئاً — undefined
+
+// 2. هل sort تُعدّل الأصل؟
+const arr = [3,1,2];
+arr.sort(); // ✅ تُعدّل الأصل
+[...arr].sort((a,b) =&gt; a-b); // ✅ نسخة آمنة
+
+// 3. كيف تُزيل التكرار من مصفوفة؟
+const unique = [...new Set([1,2,2,3,3])]; // [1,2,3]
+
+// 4. ما الفرق بين find وfilter؟
+[1,2,3,4].find(x =&gt; x &gt; 2);    // 3 — أول مطابق
+[1,2,3,4].filter(x =&gt; x &gt; 2);  // [3,4] — كل المطابقين
+
+// 5. كيف تحسب المجموع؟
+[1,2,3,4,5].reduce((sum, n) =&gt; sum + n, 0); // 15
+
+// 6. Object Destructuring في معاملات الدالة
+function display({ name, age = 0, role = 'user' }) {
+  console.log(`${name} (${age}) — ${role}`);
+}</code></pre>
+  <div class="output-box" id="out-1"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.4</span><h3>مراجعة الجلسة 12: Async JavaScript</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>السؤال</th><th>الإجابة</th></tr></thead><tbody><tr><td>لماذا نحتاج Async؟</td><td>JS أحادي الخيط — العمليات الطويلة تُجمّد الصفحة بدون Async</td></tr><tr><td>ما حالات Promise الثلاث؟</td><td>Pending (معلّقة) → Fulfilled (نجحت) | Rejected (فشلت)</td></tr><tr><td>ما الفرق بين .catch() و try/catch مع await؟</td><td>كلاهما يصطاد الأخطاء — try/catch مع async/await أوضح وأسهل قراءةً</td></tr><tr><td>لماذا fetch لا يُلقي خطأ لـ 404؟</td><td>fetch يُلقي خطأ لمشاكل الشبكة فقط — تحقق من response.ok دائماً</td></tr><tr><td>ما Promise.all مقابل Promise.allSettled؟</td><td>all: يفشل إذا فشل أي | allSettled: ينتظر الكل بغض النظر ✅</td></tr><tr><td>كيف تُسرّع طلبات متوازية؟</td><td>const [a, b] = await Promise.all([fetchA(), fetchB()])</td></tr><tr><td>ما AbortController؟</td><td>يُلغي طلب fetch — للـ timeout ومنع الطلبات القديمة</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.5</span><h3>مراجعة الجلسة 13 إلى 15</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الجلسة والموضوع</th><th>السؤال والإجابة</th></tr></thead><tbody><tr><td>13 — localStorage</td><td>ما الفرق بين localStorage وsessionStorage؟ localStorage: دائم | session: يُحذَف عند إغلاق التبويب</td></tr><tr><td>13 — Cookies</td><td>متى تستخدم Cookies بدلاً من localStorage؟ عندما تحتاج إرسال البيانات للخادم مع كل طلب (Auth)</td></tr><tr><td>14 — OOP</td><td>ما الفرق بين Instance Method وStatic Method؟ Instance: على كل كائن | Static: على الـ Class نفسه</td></tr><tr><td>14 — Private</td><td>كيف تُخفي بيانات داخل Class؟ Private Fields بإشارة # — غير قابلة للوصول من الخارج</td></tr><tr><td>14 — Inheritance</td><td>ما الذي يجب أن يُستدعى أولاً في constructor الابن؟ super() قبل أي استخدام لـ this</td></tr><tr><td>15 — Map vs Object</td><td>متى تستخدم Map بدلاً من Object؟ مفاتيح ديناميكية، بيانات كثيرة، تكرار متكرر</td></tr><tr><td>15 — Generator</td><td>ما function* ومتى تستخدمها؟ تُنشئ Iterator — للتسلسلات اللانهائية وتأجيل الحساب</td></tr></tbody></table></div></div></div><div class="part"><div class="part-head"><span class="p-icon">🆕</span><h2>الجزء الثاني: أحدث ميزات ES2023 وES2024</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.1</span><h3>ES2023: Array Immutable Methods</h3></div><p class="blk-para">ES2023 أضافت طرقاً جديدة للمصفوفات لا تُعدّل الأصل — أكثر أماناً للبرمجة الوظيفية:</p><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>const arr = [3, 1, 4, 1, 5, 9, 2, 6];
+
+// ══ toSorted() — ترتيب بدون تعديل الأصل ✅ ══
+const sorted = arr.toSorted((a, b) =&gt; a - b);
+console.log(sorted); // [1, 1, 2, 3, 4, 5, 6, 9]
+console.log(arr);    // [3,1,4,1,5,9,2,6] — لم يتغير!
+
+// ══ toReversed() — عكس بدون تعديل ✅ ══
+const reversed = arr.toReversed();
+console.log(reversed); // [6,2,9,5,1,4,1,3]
+console.log(arr);      // لم يتغير
+
+// ══ toSpliced() — حذف/إضافة بدون تعديل ✅ ══
+// toSpliced(start, deleteCount, ...items)
+const spliced = arr.toSpliced(2, 2, 99, 88);
+// يحذف 2 عناصر من الفهرس 2 ويُضيف 99 و88
+console.log(spliced); // [3,1,99,88,5,9,2,6]
+console.log(arr);     // لم يتغير
+
+// ══ with() — تغيير عنصر بالفهرس بدون تعديل ✅ ══
+const updated = arr.with(2, 100);
+// يستبدل الفهرس 2 بقيمة 100
+console.log(updated); // [3,1,100,1,5,9,2,6]
+console.log(arr);     // لم يتغير
+
+// with() مع فهرس سالب
+const lastReplaced = arr.with(-1, 999);
+// يستبدل آخر عنصر
+console.log(lastReplaced); // [3,1,4,1,5,9,2,999]
+
+// ══ findLast() وfindLastIndex() ══
+const nums = [1, 2, 3, 4, 3, 2, 1];
+
+// find من البداية
+console.log(nums.find(n =&gt; n &gt; 2));          // 3 (أول مطابق)
+// findLast من النهاية
+console.log(nums.findLast(n =&gt; n &gt; 2));      // 3 (آخر مطابق)
+
+console.log(nums.findIndex(n =&gt; n &gt; 2));     // 2
+console.log(nums.findLastIndex(n =&gt; n &gt; 2)); // 4
+
+// ══ Array.from() مع at() ══
+const letters = ['a', 'b', 'c', 'd', 'e'];
+console.log(letters.at(0));   // 'a'
+console.log(letters.at(-1));  // 'e' ✅ (الأخير)
+console.log(letters.at(-2));  // 'd'</code></pre>
+  <div class="output-box" id="out-2"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.2</span><h3>ES2023: Symbols كـ WeakMap Keys</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// الآن يمكن استخدام Symbol كمفتاح في WeakMap وWeakSet
+
+const key = Symbol('myKey');
+const weakMap = new WeakMap();
+weakMap.set(key, { secret: 'قيمة مخفية' });
+
+// مفيد للبيانات الخاصة بدون حاجة لـ Object
+const PRIVATE = Symbol('private');
+const storage = new WeakMap();
+
+function withPrivate(target, data) {
+  storage.set(PRIVATE, { target, data });
+  return target;
+}</code></pre>
+  <div class="output-box" id="out-3"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.3</span><h3>ES2024: Object.groupBy() وMap.groupBy()</h3></div><p class="blk-para">Object.groupBy() يُجمّع عناصر المصفوفة حسب معيار — بديل أنيق لـ reduce() في حالات التجميع:</p><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>const products = [
+  { id:1, name:'كتاب',      category:'تعليم',      price:45  },
+  { id:2, name:'هاتف',      category:'إلكترونيات', price:899 },
+  { id:3, name:'قلم',       category:'مكتبية',     price:15  },
+  { id:4, name:'سماعات',    category:'إلكترونيات', price:250 },
+  { id:5, name:'حقيبة',     category:'ملابس',      price:120 },
+  { id:6, name:'لابتوب',    category:'إلكترونيات', price:3500},
+];
+
+// ══ Object.groupBy() — ES2024 ✅ ══
+const byCategory = Object.groupBy(products, p =&gt; p.category);
+console.log(byCategory);
+// {
+//   تعليم: [{ id:1, name:'كتاب', ... }],
+//   إلكترونيات: [{ id:2 }, { id:4 }, { id:6 }],
+//   مكتبية: [{ id:3 }],
+//   ملابس: [{ id:5 }]
+// }
+
+// تجميع بالسعر
+const byPriceRange = Object.groupBy(products, p =&gt; {
+  if (p.price &lt; 100)   return 'رخيص';
+  if (p.price &lt; 1000)  return 'متوسط';
+  return 'غالٍ';
+});
+
+// ══ Map.groupBy() ══
+// مثل Object.groupBy لكن يُعيد Map
+const groupedMap = Map.groupBy(products, p =&gt; p.category);
+console.log(groupedMap.get('إلكترونيات').length); // 3
+
+// ══ مقارنة مع reduce القديم ══
+// ❌ القديم — أطول وأقل وضوحاً
+const oldWay = products.reduce((acc, p) =&gt; {
+  acc[p.category] = acc[p.category] ?? [];
+  acc[p.category].push(p);
+  return acc;
+}, {});
+
+// ✅ الجديد — أوضح وأقصر
+const newWay = Object.groupBy(products, p =&gt; p.category);</code></pre>
+  <div class="output-box" id="out-4"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.4</span><h3>ES2024: Promise.withResolvers()</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// Promise.withResolvers() — إنشاء Promise مع تحكم خارجي
+// بديل أنيق لـ: new Promise((resolve, reject) =&gt; { ... })
+
+// ══ الطريقة القديمة ══
+let resolveOld, rejectOld;
+const promiseOld = new Promise((res, rej) =&gt; {
+  resolveOld = res;
+  rejectOld  = rej;
+});
+
+// ══ الطريقة الجديدة — أنيق ✅ ══
+const { promise, resolve, reject } = Promise.withResolvers();
+
+// استخدام عملي: ربط Promise بحدث
+function waitForEvent(element, eventName) {
+  const { promise, resolve, reject } = Promise.withResolvers();
+  element.addEventListener(eventName, resolve, { once: true });
+  return promise;
+}
+
+const btn = document.querySelector('#confirm-btn');
+await waitForEvent(btn, 'click');
+console.log('تم الضغط على الزر!');
+
+// مثال: Dialog مع Promise
+function showConfirmDialog(message) {
+  const { promise, resolve } = Promise.withResolvers();
+  const dialog = document.createElement('dialog');
+  dialog.innerHTML = `
+    &lt;p&gt;${message}&lt;/p&gt;
+    &lt;button id='yes'&gt;نعم&lt;/button&gt;
+    &lt;button id='no'&gt;لا&lt;/button&gt;
+  `;
+  document.body.appendChild(dialog);
+  dialog.showModal();
+  dialog.querySelector('#yes').onclick = () =&gt; { resolve(true);  dialog.remove(); };
+  dialog.querySelector('#no').onclick  = () =&gt; { resolve(false); dialog.remove(); };
+  return promise;
+}
+
+const confirmed = await showConfirmDialog('هل تريد الحذف؟');
+if (confirmed) deleteItem();</code></pre>
+  <div class="output-box" id="out-5"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.5</span><h3>ES2024: ميزات إضافية مهمة</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ══ Atomics.waitAsync() — لـ SharedArrayBuffer ══
+// (للتطبيقات المتوازية المتقدمة)
+
+// ══ Well-Formed Unicode Strings ══
+// toWellFormed() — يُصحّح نصوص Unicode المكسورة
+const str = '\uD800'; // surrogate وحيد — مكسور
+console.log(str.isWellFormed());    // false
+console.log(str.toWellFormed());    // '\uFFFD'
+
+// ══ Error: cause ══
+// ES2022 — لكن شائع الاستخدام الآن
+try {
+  await fetchUserData(userId);
+} catch (err) {
+  throw new Error('فشل تحميل الملف الشخصي', {
+    cause: err // الخطأ الأصلي
+  });
+}
+
+// الوصول للسبب
+try { ... } catch (err) {
+  console.log(err.message); // 'فشل تحميل الملف الشخصي'
+  console.log(err.cause);   // الخطأ الأصلي
+}
+
+// ══ Array Grouping المقترح ══
+// (مُدرَج في ES2024)
+const students = [
+  { name:'أحمد', grade:'A' },
+  { name:'سارة', grade:'B' },
+  { name:'خالد', grade:'A' },
+];
+
+const byGrade = Object.groupBy(students, s =&gt; s.grade);
+// { A: [{name:'أحمد',...}, {name:'خالد',...}], B: [{name:'سارة',...}] }
+
+// ══ Temporal API (قيد الاقتراح) ══
+// بديل أفضل لـ Date — (مستقبلي)
+// const now = Temporal.Now.instant();
+// const date = Temporal.PlainDate.from('2025-01-15');</code></pre>
+  <div class="output-box" id="out-6"></div>
+</div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الميزة</th><th>الإصدار والوصف</th></tr></thead><tbody><tr><td>Array.toSorted()</td><td>ES2023 — ترتيب بدون تعديل الأصل</td></tr><tr><td>Array.toReversed()</td><td>ES2023 — عكس بدون تعديل الأصل</td></tr><tr><td>Array.toSpliced()</td><td>ES2023 — splice بدون تعديل الأصل</td></tr><tr><td>Array.with()</td><td>ES2023 — تغيير عنصر بدون تعديل الأصل</td></tr><tr><td>Array.findLast()</td><td>ES2023 — البحث من النهاية</td></tr><tr><td>Array.findLastIndex()</td><td>ES2023 — فهرس آخر مطابق</td></tr><tr><td>Symbol كـ WeakMap key</td><td>ES2023 — Symbols مدعومة في WeakMap/Set</td></tr><tr><td>Object.groupBy()</td><td>ES2024 — تجميع المصفوفة بمعيار</td></tr><tr><td>Map.groupBy()</td><td>ES2024 — مثل Object.groupBy لكن يُعيد Map</td></tr><tr><td>Promise.withResolvers()</td><td>ES2024 — إنشاء Promise مع تحكم خارجي</td></tr><tr><td>Atomics.waitAsync()</td><td>ES2024 — انتظار غير متزامن لـ SharedArrayBuffer</td></tr><tr><td>String.isWellFormed()</td><td>ES2024 — التحقق من Unicode صحيح</td></tr><tr><td>String.toWellFormed()</td><td>ES2024 — تصحيح Unicode المكسور</td></tr><tr><td>Error.cause</td><td>ES2022 — نقل سبب الخطأ الأصلي</td></tr></tbody></table></div></div></div><div class="part"><div class="part-head"><span class="p-icon">✅</span><h2>الجزء الثالث: أفضل ممارسات JavaScript الاحترافية</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.1</span><h3>كتابة كود نظيف (Clean Code)</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ══ التسمية الواضحة ══
+
+// ❌ تسمية سيئة
+const d = new Date();
+const u = users.filter(x =&gt; x.a &gt; 18);
+function calc(a, b) { return a * b; }
+
+// ✅ تسمية واضحة
+const currentDate = new Date();
+const adultUsers = users.filter(user =&gt; user.age &gt; 18);
+function calculateTotalPrice(price, quantity) { return price * quantity; }
+
+// ══ الدوال القصيرة والمحددة ══
+
+// ❌ دالة تفعل كل شيء
+function processUser(user) {
+  // التحقق + المعالجة + الإرسال + التحديث — 100 سطر!
+}
+
+// ✅ دوال صغيرة ومحددة (Single Responsibility)
+function validateUser(user)  { /* التحقق فقط */ }
+function transformUser(user) { /* التحويل فقط */ }
+function saveUser(user)      { /* الحفظ فقط   */ }
+
+// ══ تجنّب التعليقات الزائدة ══
+
+// ❌ تعليق يكرر الكود
+// زيادة العمر بمقدار 1
+user.age = user.age + 1;
+
+// ✅ كود يُشرح نفسه
+const incrementAge = (user) =&gt; ({ ...user, age: user.age + 1 });
+
+// ✅ تعليق للكود المعقد فقط
+// خوارزمية Levenshtein لحساب مسافة التعديل بين نصين
+function levenshteinDistance(s1, s2) { ... }
+
+// ══ معالجة الأخطاء المناسبة ══
+
+// ❌ تجاهل الأخطاء
+try {
+  const data = await fetchData();
+} catch (e) { } // صامت! ❌
+
+// ✅ معالجة الأخطاء بشكل صريح
+async function fetchWithFallback(url, fallback = null) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return res.json();
+  } catch (error) {
+    console.error(`فشل جلب ${url}:`, error.message);
+    return fallback;
+  }
+}</code></pre>
+  <div class="output-box" id="out-7"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.2</span><h3>أنماط JavaScript الاحترافية</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ══ 1. Guard Clauses — تجنّب التداخل العميق ══
+
+// ❌ تداخل عميق
+function processPayment(order) {
+  if (order) {
+    if (order.items.length &gt; 0) {
+      if (order.total &gt; 0) {
+        // المعالجة هنا
+      }
+    }
+  }
+}
+
+// ✅ Guard Clauses
+function processPayment(order) {
+  if (!order)                   throw new Error('الطلب مطلوب');
+  if (order.items.length === 0) throw new Error('الطلب فارغ');
+  if (order.total &lt;= 0)         throw new Error('المبلغ غير صالح');
+  // المعالجة هنا — واضحة وبسيطة
+}
+
+// ══ 2. Memoization — تخزين نتائج الحسابات الثقيلة ══
+function memoize(fn) {
+  const cache = new Map();
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) return cache.get(key);
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+const slowFib = n =&gt; n &lt;= 1 ? n : slowFib(n-1) + slowFib(n-2);
+const fastFib = memoize(n =&gt; n &lt;= 1 ? n : fastFib(n-1) + fastFib(n-2));
+console.log(fastFib(50)); // سريع جداً!
+
+// ══ 3. Debounce — تأخير تنفيذ الدالة ══
+function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() =&gt; fn.apply(this, args), delay);
+  };
+}
+
+const searchInput = document.querySelector('#search');
+const handleSearch = debounce(async (query) =&gt; {
+  const results = await searchAPI(query);
+  displayResults(results);
+}, 300);
+
+searchInput.addEventListener('input', e =&gt; handleSearch(e.target.value));
+
+// ══ 4. Throttle — تقييد معدل التنفيذ ══
+function throttle(fn, interval) {
+  let lastTime = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastTime &gt;= interval) {
+      lastTime = now;
+      return fn.apply(this, args);
+    }
+  };
+}
+
+const handleScroll = throttle(() =&gt; {
+  updateParallax();
+}, 16); // ~60fps
+
+window.addEventListener('scroll', handleScroll);</code></pre>
+  <div class="output-box" id="out-8"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">💻</span><h2>الجزء الرابع: المشروع النهائي لمرحلة JavaScript</h2></div><div class="project-box"><p class="blk-para">سنبني تطبيق «أكاديمية التقنية — نظام إدارة الطلاب» متكاملاً يجمع كل مفاهيم JavaScript من الجلسات 9-15.</p><div class="subsection"><div class="sub-head"><span class="sub-num">4.1</span><h3>وصف المشروع</h3></div><div class="callout success"><span class="callout-title">🎓 مواصفات التطبيق</span><pre class="ascii-diagram">  اسم التطبيق: TechAcademy Student Manager
+  الميزات الأساسية:
+  ├── إدارة الطلاب: إضافة، تعديل، حذف، بحث
+  ├── نظام الدرجات: إضافة وعرض وحساب المتوسطات
+  ├── إحصائيات: تقارير، رسوم بيانية نصية، تصنيفات
+  ├── تخزين دائم: localStorage مع JSON
+  ├── جلب بيانات: Fetch API من JSONPlaceholder
+  ├── OOP: Classes للطالب والكورس والسجل
+  └── ES Modules: كل وحدة في ملف منفصل
+  صفحات التطبيق:
+  ├── Dashboard: إحصائيات عامة وآخر النشاط
+  ├── Students: قائمة الطلاب مع بحث وتصفية
+  ├── Grades: إدارة الدرجات والكورسات
+  └── Reports: تقارير مفصلة</pre></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.2</span><h3>هيكل المشروع</h3></div><div class="code-block" data-lang="shell">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot other"></span>Shell</span>
+    <div class="code-actions">
+      
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>tech-academy/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   ├── main.js                ← Entry point
+│   ├── models/
+│   │   ├── Student.js         ← Class طالب (OOP)
+│   │   ├── Course.js          ← Class كورس
+│   │   └── Grade.js           ← Class درجة
+│   ├── services/
+│   │   ├── StorageService.js  ← localStorage wrapper
+│   │   ├── ApiService.js      ← Fetch API wrapper
+│   │   └── StatisticsService.js ← تحليل البيانات
+│   ├── ui/
+│   │   ├── Router.js          ← التنقل بين الصفحات
+│   │   ├── Dashboard.js       ← صفحة الإحصائيات
+│   │   ├── StudentsPage.js    ← صفحة الطلاب
+│   │   └── GradesPage.js      ← صفحة الدرجات
+│   └── utils/
+│       ├── validators.js      ← دوال التحقق
+│       └── helpers.js         ← دوال مساعدة
+└── README.md</code></pre>
+  <div class="output-box" id="out-9"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.3</span><h3>كود المودلات الأساسية</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ js/models/Student.js ═══
+
+export class Student {
+  static #idCounter = 1000;
+  static #instances = new Map();
+
+  #id;
+  #name;
+  #email;
+  #phone;
+  #enrolledAt;
+  #grades = new Map(); // courseId → Grade[]
+
+  constructor({ name, email, phone }) {
+    this.#id        = `STU-${++Student.#idCounter}`;
+    this.name       = name;
+    this.email      = email;
+    this.phone      = phone;
+    this.#enrolledAt = new Date();
+    Student.#instances.set(this.#id, this);
+  }
+
+  get id()         { return this.#id; }
+  get name()       { return this.#name; }
+  get email()      { return this.#email; }
+  get enrolledAt() { return this.#enrolledAt.toLocaleDateString('ar-SA'); }
+
+  set name(val) {
+    if (!val?.trim() || val.length &lt; 2) throw new Error('الاسم قصير جداً');
+    this.#name = val.trim();
+  }
+  set email(val) {
+    if (!val?.includes('@')) throw new Error('البريد غير صالح');
+    this.#email = val.toLowerCase().trim();
+  }
+  set phone(val) {
+    if (!/^05[0-9]{8}$/.test(val)) throw new Error('الجوال غير صالح (يجب أن يبدأ بـ 05)');
+    this.#phone = val;
+  }
+
+  addGrade(courseId, score, comment = '') {
+    if (score &lt; 0 || score &gt; 100) throw new RangeError('الدرجة بين 0 و100');
+    if (!this.#grades.has(courseId)) this.#grades.set(courseId, []);
+    this.#grades.get(courseId).push({
+      score, comment,
+      date: new Date().toLocaleDateString('ar-SA'),
+    });
+  }
+
+  getAverage(courseId) {
+    const grades = this.#grades.get(courseId) ?? [];
+    if (grades.length === 0) return null;
+    return grades.reduce((s, g) =&gt; s + g.score, 0) / grades.length;
+  }
+
+  getOverallAverage() {
+    const allGrades = [...this.#grades.values()].flat();
+    if (allGrades.length === 0) return 0;
+    return allGrades.reduce((s, g) =&gt; s + g.score, 0) / allGrades.length;
+  }
+
+  getLetterGrade() {
+    const avg = this.getOverallAverage();
+    if (avg &gt;= 90) return { letter:'A', label:'ممتاز',  emoji:'🏆' };
+    if (avg &gt;= 80) return { letter:'B', label:'جيد جداً',emoji:'⭐' };
+    if (avg &gt;= 70) return { letter:'C', label:'جيد',    emoji:'👍' };
+    if (avg &gt;= 60) return { letter:'D', label:'مقبول',  emoji:'📚' };
+    return           { letter:'F', label:'راسب',   emoji:'❌' };
+  }
+
+  toJSON() {
+    return {
+      id:          this.#id,
+      name:        this.#name,
+      email:       this.#email,
+      phone:       this.#phone,
+      enrolledAt:  this.#enrolledAt.toISOString(),
+      grades:      Object.fromEntries(this.#grades),
+    };
+  }
+
+  static fromJSON(data) {
+    const student = new Student(data);
+    // استعادة الـ id والدرجات
+    student.#id = data.id;
+    student.#enrolledAt = new Date(data.enrolledAt);
+    Object.entries(data.grades ?? {}).forEach(([courseId, grades]) =&gt; {
+      student.#grades.set(courseId, grades);
+    });
+    return student;
+  }
+
+  static getById(id)    { return Student.#instances.get(id); }
+  static getAll()       { return [...Student.#instances.values()]; }
+  static getTotalCount(){ return Student.#instances.size; }
+
+  toString() {
+    const { letter, emoji } = this.getLetterGrade();
+    return `[${this.#id}] ${this.#name} | ${letter} ${emoji} | ${this.getOverallAverage().toFixed(1)}`;
+  }
+}</code></pre>
+  <div class="output-box" id="out-10"></div>
+</div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ js/services/StorageService.js ═══
+
+export class StorageService {
+  #prefix;
+
+  constructor(prefix = 'techacademy_') {
+    this.#prefix = prefix;
+  }
+
+  #key(name) { return `${this.#prefix}${name}`; }
+
+  save(name, data) {
+    try {
+      localStorage.setItem(this.#key(name), JSON.stringify({
+        data,
+        savedAt: new Date().toISOString(),
+        version: '1.0',
+      }));
+      return true;
+    } catch (err) {
+      console.error('فشل الحفظ:', err.message);
+      return false;
+    }
+  }
+
+  load(name, defaultValue = null) {
+    try {
+      const raw = localStorage.getItem(this.#key(name));
+      return raw ? JSON.parse(raw).data : defaultValue;
+    } catch {
+      return defaultValue;
+    }
+  }
+
+  remove(name)  { localStorage.removeItem(this.#key(name)); }
+  exists(name)  { return localStorage.getItem(this.#key(name)) !== null; }
+  getSavedAt(name) {
+    const raw = localStorage.getItem(this.#key(name));
+    return raw ? JSON.parse(raw).savedAt : null;
+  }
+
+  getAllKeys() {
+    return Object.keys(localStorage)
+      .filter(k =&gt; k.startsWith(this.#prefix))
+      .map(k =&gt; k.slice(this.#prefix.length));
+  }
+}
+
+// ═══ js/services/ApiService.js ═══
+
+export class ApiService {
+  #baseURL;
+  #timeout;
+
+  constructor(baseURL, timeout = 8000) {
+    this.#baseURL  = baseURL.replace(/\/$/, '');
+    this.#timeout  = timeout;
+  }
+
+  async #request(endpoint, options = {}) {
+    const controller = new AbortController();
+    const timer = setTimeout(() =&gt; controller.abort(), this.#timeout);
+
+    try {
+      const res = await fetch(`${this.#baseURL}${endpoint}`, {
+        headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
+        ...options,
+      });
+      clearTimeout(timer);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      return res.json();
+    } catch (err) {
+      clearTimeout(timer);
+      if (err.name === 'AbortError') throw new Error('انتهت المهلة');
+      throw err;
+    }
+  }
+
+  get(endpoint)          { return this.#request(endpoint); }
+  post(endpoint, body)   { return this.#request(endpoint, { method:'POST',  body: JSON.stringify(body) }); }
+  put(endpoint, body)    { return this.#request(endpoint, { method:'PUT',   body: JSON.stringify(body) }); }
+  delete(endpoint)       { return this.#request(endpoint, { method:'DELETE' }); }
+}</code></pre>
+  <div class="output-box" id="out-11"></div>
+</div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ js/main.js — Entry Point ═══
+
+import { Student }          from './models/Student.js';
+import { StorageService }   from './services/StorageService.js';
+import { ApiService }       from './services/ApiService.js';
+import { Router }           from './ui/Router.js';
+import { Dashboard }        from './ui/Dashboard.js';
+import { StudentsPage }     from './ui/StudentsPage.js';
+
+// ══ تهيئة الخدمات ══
+const storage = new StorageService('techacademy_');
+const api     = new ApiService('https://jsonplaceholder.typicode.com');
+
+// ══ استعادة الطلاب من localStorage ══
+async function initializeApp() {
+  const savedStudents = storage.load('students', []);
+  savedStudents.forEach(data =&gt; Student.fromJSON(data));
+
+  // جلب بيانات تجريبية من API إذا لا يوجد طلاب
+  if (Student.getTotalCount() === 0) {
+    try {
+      const users = await api.get('/users');
+      users.slice(0, 5).forEach(user =&gt; {
+        try {
+          new Student({
+            name:  user.name,
+            email: user.email,
+            phone: '0501234567', // placeholder
+          });
+        } catch { /* تخطي البيانات غير الصالحة */ }
+      });
+      saveStudents();
+    } catch (err) {
+      console.warn('تعذّر جلب بيانات تجريبية:', err.message);
+    }
+  }
+
+  renderApp();
+}
+
+// ══ حفظ الطلاب ══
+function saveStudents() {
+  const data = Student.getAll().map(s =&gt; s.toJSON());
+  storage.save('students', data);
+}
+
+// ══ تهيئة الـ Router ══
+function renderApp() {
+  const router = new Router({
+    '#dashboard': () =&gt; new Dashboard(Student.getAll()).render(),
+    '#students':  () =&gt; new StudentsPage(Student.getAll(), { onSave: saveStudents }).render(),
+  });
+
+  router.init('#dashboard'); // الصفحة الافتراضية
+}
+
+// ══ تشغيل التطبيق ══
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+// ══ مزامنة بين التبويبات ══
+window.addEventListener('storage', (e) =&gt; {
+  if (e.key?.includes('techacademy_students')) {
+    location.reload(); // تحديث عند التغيير من تبويب آخر
+  }
+});</code></pre>
+  <div class="output-box" id="out-12"></div>
+</div></div></div></div><div class="part"><div class="part-head"><span class="p-icon">✅</span><h2>الجزء الخامس: قائمة تحقق مرحلة JavaScript</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.1</span><h3>قائمة التحقق التقني</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>البند التقني</th><th>المستوى المطلوب</th></tr></thead><tbody><tr><td>المتغيرات والأنواع</td><td>const/let | typeof | تحويل الأنواع | Truthy/Falsy</td></tr><tr><td>الدوال</td><td>Declaration, Expression, Arrow | Default params | Rest/Spread | Closure</td></tr><tr><td>المصفوفات</td><td>map, filter, reduce, find, sort | Destructuring | Immutable methods</td></tr><tr><td>الكائنات</td><td>Object.keys/values/entries | Spread | Optional Chaining | Nullish ??</td></tr><tr><td>DOM</td><td>querySelector | classList | addEventListener | Event Delegation | createElement</td></tr><tr><td>Async</td><td>Promise | async/await | try/catch | fetch | Promise.all/allSettled</td></tr><tr><td>Web Storage</td><td>localStorage | sessionStorage | JSON.stringify/parse | storage event</td></tr><tr><td>OOP</td><td>class | constructor | #private | get/set | extends | super | Polymorphism</td></tr><tr><td>ES Modules</td><td>import/export | Named/Default | Dynamic import | Barrel files</td></tr><tr><td>Map &amp; Set</td><td>map.set/get | Set للفرد | WeakMap للبيانات الخاصة</td></tr><tr><td>Error Handling</td><td>try/catch/finally | Error types | Error.cause | throw custom errors</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.2</span><h3>أسئلة المراجعة النهائية</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// أجب على هذه الأسئلة بدون النظر للملاحظات:
+
+// 1. ما ناتج هذا الكود؟
+console.log(typeof null);         // ؟  (object — خطأ تاريخي)
+console.log([] + {});             // ؟  ('[object Object]')
+console.log({} + []);             // ؟  (0 في بعض السياقات)
+console.log(0.1 + 0.2 === 0.3);  // ؟  (false — floating point!)
+
+// 2. ما الفرق بين هذين الكودين؟
+const obj1 = {};
+const obj2 = {};
+console.log(obj1 === obj2);  // ؟  (false — مراجع مختلفة)
+console.log(obj1 == obj2);   // ؟  (false — نفس السبب)
+
+// 3. ما ناتج Closure هذا؟
+function outer() {
+  let count = 0;
+  return () =&gt; ++count;
+}
+const inc = outer();
+console.log(inc()); // ؟  (1)
+console.log(inc()); // ؟  (2)
+console.log(inc()); // ؟  (3)
+
+// 4. ما ناتج هذه المصفوفة؟
+[1, 2, 3].map(String);      // ؟  (['1','2','3'])
+[1, [2, [3]]].flat();       // ؟  ([1,2,[3]])
+[1, [2, [3]]].flat(Infinity); // ؟  ([1,2,3])
+
+// 5. ما ترتيب الطباعة؟
+console.log('1');
+setTimeout(() =&gt; console.log('2'), 0);
+Promise.resolve().then(() =&gt; console.log('3'));
+console.log('4');
+// ؟  (1, 4, 3, 2) — Microtasks قبل Macrotasks!
+
+// 6. هل هذا الكود يعمل؟
+class A {
+  #x = 1;
+  getX() { return this.#x; }
+}
+const a = new A();
+console.log(a.#x);      // ؟  (SyntaxError — private!)
+console.log(a.getX());  // ؟  (1 — عبر method)</code></pre>
+  <div class="output-box" id="out-13"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">✏️</span><h2>الجزء السادس: تمارين الجلسة السادسة عشرة</h2></div><div class="exercise-card"><h4>✏️ تمرين 1 — مراجعة سريعة<span class="ex-time">20 دقيقة</span></h4><p class="blk-para">أجب على هذه الأسئلة مع زميلك:</p><ul class="mini-list"><li>اشرح الفرق بين Promise.all وPromise.allSettled بمثال عملي</li><li>اكتب دالة pipe(...fns) تُطبّق دوالاً بالتسلسل: pipe(double, addOne)(5) → 11</li><li>اكتب class EventBus بـ Map&lt;string, Set&lt;Function&gt;&gt; — on/off/emit</li><li>اكتب async function retry(fn, times, delay) تُعيد المحاولة عند الفشل</li><li>حوّل هذا الكود من Callbacks إلى async/await</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 2 — ES2024<span class="ex-time">15 دقيقة</span></h4><p class="blk-para">طبّق الميزات الجديدة:</p><ul class="mini-list"><li>استخدم Object.groupBy لتجميع مصفوفة منتجات حسب الفئة وأعلى سعر</li><li>استخدم toSorted وtoReversed وwith على مصفوفة طلاب</li><li>استخدم Promise.withResolvers لبناء dialog confirm يُعيد Promise&lt;boolean&gt;</li><li>استخدم findLast لإيجاد آخر طالب له تقدير A</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 3 — المشروع النهائي<span class="ex-time">25 دقيقة</span></h4><p class="blk-para">ابدأ بناء المشروع النهائي:</p><ul class="mini-list"><li>أنشئ هيكل الملفات بالكامل وتأكد من عمل import/export</li><li>نفّذ Student Class مع جميع الـ validators والـ methods</li><li>نفّذ StorageService وتأكد من حفظ واسترجاع بيانات Student</li><li>أضف 5 طلاب يدوياً وأضف درجات لهم ثم احسب المتوسطات</li><li>اعرض البيانات في DOM بشكل منظم وجميل</li></ul></div></div><div class="part"><div class="part-head"><span class="p-icon">📚</span><h2>ملخص مرحلة JavaScript كاملة (جلسات 9-16)</h2></div><div class="callout info"><span class="callout-title">🏆 ما أنجزته في مرحلة JavaScript</span><p>✅ أساسيات JS: المتغيرات، الأنواع، العمليات، الدوال، التحكم في التدفق</p><p>✅ DOM: تحديد وتعديل العناصر، إنشاء وحذف، Event Delegation</p><p>✅ Arrays المتقدمة: map, filter, reduce, Destructuring, Spread</p><p>✅ Async/Await + Fetch API + معالجة الأخطاء</p><p>✅ Web Storage: localStorage, sessionStorage, Cookies</p><p>✅ OOP: Classes, Private Fields, Inheritance, Polymorphism</p><p>✅ ES Modules, Map, Set, Symbol, Iterators, Generators</p><p>✅ ES2023/2024: أحدث الميزات</p><p>✅ مشاريع حقيقية: To-Do List, متجر, مذكرات, أكاديمية</p></div><div class="subsection"><div class="sub-head"><h3>في الجلسة القادمة — بداية مرحلة React...</h3></div><div class="callout preview"><span class="callout-title">🔮 الجلسة السابعة عشرة: مقدمة إلى React</span><p>✦ ما هو React ولماذا هو الأكثر استخداماً في الصناعة</p><p>✦ الفرق بين المكتبة والإطار — React vs Angular vs Vue</p><p>✦ تثبيت بيئة React: Vite (الأسرع والأحدث)</p><p>✦ JSX: كتابة HTML داخل JavaScript</p><p>✦ Components: الفنكشنل والـ Class (نركز على Functional)</p><p>✦ Props: تمرير البيانات بين المكوّنات</p><p>✦ مشروع: بناء أول مكوّن React — بطاقة شخصية</p></div><p class="blk-para">🏆 أحسنت! أنت الآن مطوّر JavaScript محترف 🏆</p></div></div>
+<div class="part homework"><div class="part-head"><span class="p-icon">🏠</span><h2>المشروع النهائي لمرحلة JavaScript</h2></div><div class="callout info"><span class="callout-title">📅 موعد التسليم: قبل بداية الجلسة السابعة عشرة (مقدمة React)</span><p>يُرسَل رابط GitHub Pages + رابط Repository عبر القناة</p><p>سيُراجع المدرب كل مشروع ويقدم ملاحظات تفصيلية</p><p>هذا المشروع هو جزء من محفظتك الاحترافية (Portfolio)</p></div><div class="subsection"><div class="sub-head"><h3>المشروع: TechAcademy Student Manager</h3></div><p class="blk-para">أكمل بناء نظام إدارة الطلاب بالكامل:</p><h4 class="mini-head">◆ 📋 الصفحات المطلوبة:</h4><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الصفحة</th><th>المحتوى الإلزامي</th></tr></thead><tbody><tr><td>Dashboard</td><td>إجمالي الطلاب، متوسط الدرجات، قائمة الشرف، رسم بياني نصي للتوزيع</td></tr><tr><td>Students</td><td>قائمة طلاب مع بحث وتصفية، إضافة طالب جديد، حذف مع تأكيد، تعديل</td></tr><tr><td>Grades</td><td>إضافة درجة لطالب وكورس، عرض جميع درجات طالب، حساب المتوسطات</td></tr><tr><td>Reports</td><td>تقرير مفصل: أعلى وأدنى درجات، توزيع التقديرات، رسم بياني</td></tr></tbody></table></div><h4 class="mini-head">◆ 🔧 المتطلبات التقنية الإلزامية:</h4><ul class="mini-list"><li>ES Modules: كل وحدة في ملف منفصل مع import/export صحيح</li><li>OOP: Student وCourse وGrade كـ Classes مع private fields</li><li>localStorage: حفظ دائم للبيانات مع StorageService</li><li>Fetch API: جلب بيانات ابتدائية من JSONPlaceholder</li><li>async/await: مع try/catch وAbortController للـ timeout</li><li>DOM: Event Delegation + Dynamic rendering + CRUD كامل</li><li>ES2024: استخدام Object.groupBy وtoSorted في التقارير</li><li>GitHub Pages: الموقع منشور ويعمل</li></ul><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>معيار التقييم</th><th>الدرجة</th></tr></thead><tbody><tr><td>4 صفحات تعمل بشكل صحيح</td><td>20 نقطة</td></tr><tr><td>ES Modules وتنظيم الملفات</td><td>15 نقطة</td></tr><tr><td>OOP مع private fields صحيح</td><td>15 نقطة</td></tr><tr><td>localStorage يحفظ ويسترجع بشكل صحيح</td><td>15 نقطة</td></tr><tr><td>Fetch API مع error handling</td><td>10 نقاط</td></tr><tr><td>استخدام ميزات ES2024</td><td>10 نقاط</td></tr><tr><td>GitHub Pages يعمل والكود منظم</td><td>15 نقطة</td></tr></tbody></table></div></div></div>
+<div class="closing-banner">
+  <h3>8 جلسات من الأساسيات للمتقدم — رحلة رائعة!</h3>
+  <p>استعد لـ React — المرحلة الأكثر إثارة في رحلتك! ⚛️</p>
+  <p class="attribution">Eng. Hasan Hajjar  |  Front-End Master Book  |  Session 16</p>
+</div>
+
+      <div class="complete-bar">
+        <button class="btn btn-primary" data-complete-btn>أكملت هذا الدرس</button>
+        <span style="color:var(--ink-faint); font-size:.85rem;">يُحفَظ تقدّمك محلياً في متصفحك</span>
+      </div>
+
+      <div class="lesson-nav">
+        <a class="nav-arrow prev" href="lesson-15.html"><small>السابق</small><span>الجلسة 15 — JavaScript المتقدم</span></a>
+        <a class="nav-arrow next is-disabled" href="#"><small>التالي</small><span>هذه آخر جلسة حالياً</span></a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

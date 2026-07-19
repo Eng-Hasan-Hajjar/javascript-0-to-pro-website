@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Front-End Master Book | مسار JavaScript — م. حسن حجار</title>
-<meta name="description" content="منصة تفاعلية حيّة لتعلّم JavaScript باللغة العربية — بديل عن عروض PowerPoint، إعداد م. حسن حجار.">
+<title>Front-End Master Book | مسار HTML &amp; CSS — م. حسن حجار</title>
+<meta name="description" content="منصة تفاعلية حيّة لتعلّم HTML وCSS باللغة العربية — بديل عن عروض PowerPoint، إعداد م. حسن حجار.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     <a href="index.html" class="brand">
       <span class="brand-mark">&lt;/&gt;</span>
       <span>Front-End Master
-        <small>مسار JavaScript · م. حسن حجار</small>
+        <small>مسار HTML &amp; CSS · م. حسن حجار</small>
       </span>
     </a>
     <div class="nav-links">
@@ -30,7 +30,7 @@
       <button class="icon-btn theme-toggle" aria-label="تبديل الوضع الليلي">
         <span class="moon">🌙</span><span class="sun">☀️</span>
       </button>
-      <a href="lesson-09.html" class="btn btn-primary btn-sm">ابدأ التعلّم</a>
+      <a href="lesson-01.html" class="btn btn-primary btn-sm">ابدأ التعلّم</a>
       <button class="icon-btn nav-toggle" aria-label="القائمة">☰</button>
     </div>
   </div>
@@ -40,39 +40,37 @@
   <a href="index.html">الرئيسية</a>
   <a href="#lessons">الجلسات</a>
   <a href="#about">عن المدرب</a>
-  <a href="lesson-09.html">ابدأ التعلّم</a>
+  <a href="lesson-01.html">ابدأ التعلّم</a>
 </div>
 
 <!-- ===== قسم البطل ===== -->
 <header class="hero">
   <div class="container">
     <div class="hero-copy">
-      <span class="eyebrow"><span class="dot"></span> Front-End Master Book · مسار JavaScript</span>
-      <h1>تعلّم <span class="hl">JavaScript</span> بأسلوب <span class="hl2">حيّ وتفاعلي</span>، لا بعرض شرائح ساكن</h1>
+      <span class="eyebrow"><span class="dot"></span> Front-End Master Book · مسار HTML &amp; CSS</span>
+      <h1>ابنِ صفحات الويب <span class="hl">بصرياً وحيّاً</span>، لا بشرائح <span class="hl2">ساكنة</span></h1>
       <p class="lead">
-        منصّة تعليمية كاملة تستبدل عروض PowerPoint التقليدية بدروس حيّة: كل مفهوم مشروح، مُجرَّب أمامك مباشرة،
-        وقابل للتشغيل والتعديل من داخل المتصفح — بإعداد المهندس <strong>حسن حجار</strong>.
+        منصّة تعليمية كاملة تستبدل عروض PowerPoint التقليدية بدروس حيّة: كل مثال HTML وCSS يُعرض
+        بمعاينة فعلية تُشاهدها لحظة كتابتها — بإعداد المهندس <strong>حسن حجار</strong>.
       </p>
       <div class="hero-cta">
-        <a href="lesson-09.html" class="btn btn-primary">ابدأ من الجلسة 09 ⟵</a>
+        <a href="lesson-01.html" class="btn btn-primary">ابدأ من الجلسة 01 ⟵</a>
         <a href="#lessons" class="btn btn-ghost">تصفّح كل الجلسات</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b>6</b><span>جلسات JavaScript</span></div>
-        <div class="stat"><b>18</b><span>ساعة تدريب</span></div>
-        <div class="stat"><b>٪100</b><span>أمثلة قابلة للتشغيل</span></div>
+        <div class="stat"><b>8</b><span>جلسات HTML &amp; CSS</span></div>
+        <div class="stat"><b>24</b><span>ساعة تدريب</span></div>
+        <div class="stat"><b>٪100</b><span>أمثلة بمعاينة حيّة</span></div>
       </div>
     </div>
 
-    <div class="terminal">
-      <div class="terminal-bar">
+    <div class="browser-mock">
+      <div class="browser-bar">
         <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
-        <span>session-09.js</span>
+        <span class="addr">🔒 session-01.html</span>
       </div>
-      <div class="terminal-body">
-        <pre><code data-hero-code></code></pre>
-        <div class="terminal-out" data-hero-out></div>
-      </div>
+      <iframe class="browser-frame" data-hero-frame title="معاينة حيّة"></iframe>
+      <pre style="margin:0;padding:16px 20px;background:var(--code-bg);max-height:140px;overflow:hidden;"><code data-hero-code style="font-family:var(--font-mono);font-size:.78rem;color:var(--code-text);"></code></pre>
     </div>
   </div>
 </header>
@@ -82,7 +80,7 @@
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">المسار التعليمي</span>
-      <h2>ست جلسات، من الأساسيات إلى البرمجة الكائنية</h2>
+      <h2>ثماني جلسات، من أول وسم HTML إلى مشروع شامل</h2>
       <p>نفس التسلسل والمحتوى المعتمد في جلسات المدرّب — بشكل تفاعلي كامل بدل الشرائح الثابتة.</p>
     </div>
     <div class="lessons-grid" data-lessons-grid></div>
@@ -97,13 +95,13 @@
       <div>
         <div class="about-role">عن المدرّب</div>
         <h2 class="about-name">Eng. Hasan Hajjar — م. حسن حجار</h2>
-        <p class="about-text">Software Engineer &amp; AI Engineer، ومؤلّف سلسلة <strong>Front-End Master Book</strong> — مرجع متكامل لتعليم الويب باللغة العربية، من HTML وCSS الأساسيات وصولاً إلى JavaScript الحديثة وأنماط البرمجة المتقدمة.</p>
-        <p class="about-text">هذه المنصّة هي التحويل التفاعلي لجلسات المسار: كل جلسة تحافظ على نفس الترتيب والمحتوى والأهداف التعليمية، لكن بصيغة حيّة يمكن تجربتها وتشغيلها مباشرة من المتصفح.</p>
+        <p class="about-text">Software Engineer &amp; AI Engineer، ومؤلّف سلسلة <strong>Front-End Master Book</strong> — مرجع متكامل لتعليم الويب باللغة العربية، من أساسيات HTML وCSS وصولاً إلى JavaScript الحديثة وReact.</p>
+        <p class="about-text">هذا المسار هو نقطة البداية: كل جلسة تحافظ على نفس الترتيب والمحتوى والأهداف التعليمية، لكن بصيغة حيّة يمكن تجربتها ومعاينتها مباشرة من المتصفح.</p>
         <div class="about-badges">
-          <span>⚡ JavaScript ES6+</span>
-          <span>🌳 DOM &amp; Events</span>
-          <span>⏳ Async / Await</span>
-          <span>🏛️ OOP</span>
+          <span>🌐 HTML5 الدلالي</span>
+          <span>🎨 CSS3 الحديث</span>
+          <span>🧩 Flexbox &amp; Grid</span>
+          <span>📱 تصميم متجاوب</span>
         </div>
       </div>
     </div>
@@ -116,12 +114,12 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="brand"><span class="brand-mark">&lt;/&gt;</span><span>Front-End Master</span></a>
-        <p>منصّة عربية تفاعلية لتعليم JavaScript، بديلة عن عروض PowerPoint التقليدية — إعداد م. حسن حجار.</p>
+        <p>منصّة عربية تفاعلية لتعليم HTML وCSS، بديلة عن عروض PowerPoint التقليدية — إعداد م. حسن حجار.</p>
       </div>
       <div class="footer-links">
         <div>
           <h4>المسار</h4>
-          <a href="lesson-09.html">الجلسة 09 — مقدمة JavaScript</a>
+          <a href="lesson-01.html">الجلسة 01 — مقدمة HTML</a>
           <a href="#lessons">كل الجلسات</a>
           <a href="#about">عن المدرب</a>
         </div>

@@ -402,7 +402,7 @@ table.data-tbl tr:hover td{ background: color-mix(in srgb, var(--primary) 4%, tr
 .code-head{ display:flex; align-items:center; justify-content:space-between; background: var(--code-bg-2); padding: 9px 14px; }
 .code-lang{ display:flex; align-items:center; gap:8px; color: var(--code-line); font-family: var(--font-mono); font-size:.78rem; font-weight:600; }
 .code-lang .cdot{ width:9px;height:9px;border-radius:50%; }
-.code-lang .cdot.js{ background: var(--tok-number); } .code-lang .cdot.html{ background: var(--tok-string); }
+.code-lang .cdot.js{ background: var(--tok-number); } .code-lang .cdot.html{ background: var(--tok-string); } .code-lang .cdot.other{ background: var(--tok-punct); }
 .code-actions{ display:flex; gap:8px; }
 .code-btn{
   display:flex; align-items:center; gap:6px; background: transparent; border:1px solid var(--code-border);
@@ -472,6 +472,31 @@ table.data-tbl tr:hover td{ background: color-mix(in srgb, var(--primary) 4%, tr
 .nav-arrow.next{ text-align:start; }
 .nav-arrow.prev{ text-align:start; }
 
+/* ============================================================
+   12. المعاينة الحيّة لأكواد HTML/CSS (بديل صندوق ناتج الكونسول)
+   ============================================================ */
+.cdot.css{ background: #C77DFF; }
+.code-btn.preview-btn{ color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.code-btn.preview-btn:hover{ background: var(--accent); color:#221200; }
+
+.preview-group{ margin: 18px 0; }
+.preview-group .code-block{ margin: 0 0 2px; border-radius: var(--radius-m); }
+.preview-group .code-block + .code-block{ margin-top: 10px; }
+
+.live-preview-wrap{ display:none; border: 1px solid var(--code-border); border-top: none; border-radius: 0 0 var(--radius-m) var(--radius-m); overflow: hidden; margin-top: -2px; }
+.live-preview-wrap.show{ display:block; }
+.live-preview-bar{ display:flex; align-items:center; justify-content:space-between; padding: 8px 14px; background: var(--code-bg-2); font-size:.78rem; font-weight:700; color: var(--code-line); }
+.live-preview-close{ background:none; border:none; color: var(--code-line); font-size:.75rem; font-weight:700; cursor:pointer; }
+.live-preview-close:hover{ color:#fff; }
+.live-preview-frame{ width:100%; height: 320px; border: none; background: #fff; display:block; }
+
+/* الطرفية الحية للبطل — نافذة متصفح بدل الطرفية (تُستخدم في مسار HTML/CSS) */
+.browser-mock{ border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-l); overflow:hidden; }
+.browser-bar{ display:flex; align-items:center; gap:10px; padding: 12px 16px; background: var(--surface-2); border-bottom:1px solid var(--border); }
+.browser-bar .tdot{ width:11px; height:11px; border-radius:50%; }
+.browser-bar .tdot.r{ background:#FF5F57; } .browser-bar .tdot.y{ background:#FEBC2E; } .browser-bar .tdot.g{ background:#28C840; }
+.browser-bar .addr{ flex:1; background: var(--bg); border-radius:100px; padding:6px 14px; font-size:.78rem; color: var(--ink-faint); font-family: var(--font-mono); text-align:center; }
+.browser-frame{ width:100%; height: 360px; border:none; display:block; background:#fff; }
 /* ---------- 11. للشاشات الصغيرة ---------- */
 @media (max-width: 980px){
   .hero .container{ grid-template-columns: 1fr; }
@@ -487,6 +512,7 @@ table.data-tbl tr:hover td{ background: color-mix(in srgb, var(--primary) 4%, tr
   .lesson-main .container{ padding: 0 20px; }
 }
 @media (max-width: 720px){
+  .browser-frame, .live-preview-frame{ height: 260px; }
   .nav-links{ display:none; }
   .nav-toggle{ display:grid; }
   .lessons-grid{ grid-template-columns: 1fr; }

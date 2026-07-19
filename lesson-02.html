@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجلسة 02 — HTML المتقدم | Front-End Master Book</title>
+<meta name="description" content="HTML المتقدم — الجداول • النماذج • Semantic HTML • الوسائط">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson-id="02">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span>Front-End Master
+        <small>مسار HTML &amp; CSS · م. حسن حجار</small>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#lessons">الجلسات</a>
+      <a href="index.html#about">عن المدرب</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" aria-label="تبديل الوضع الليلي">
+        <span class="moon">🌙</span><span class="sun">☀️</span>
+      </button>
+      <button class="icon-btn sidebar-toggle-btn" aria-label="فهرس الجلسات">📑</button>
+      <button class="icon-btn nav-toggle" aria-label="القائمة">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">الرئيسية</a>
+  <a href="index.html#lessons">الجلسات</a>
+  <a href="index.html#about">عن المدرب</a>
+</div>
+
+<div class="lesson-shell">
+  <aside class="sidebar">
+    <div class="sidebar-title">فهرس الجلسات</div>
+    <div data-sidebar-list></div>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill"></div></div>
+      <span></span>
+    </div>
+  </aside>
+
+  <main class="lesson-main">
+    <div class="container">
+      <div class="lesson-header">
+  <div class="top-row">
+    <span class="emoji-badge">🌐</span>
+    <div>
+      <div class="session-tag">Session 02 &middot; 3 Hours</div>
+    </div>
+  </div>
+  <h1>الجلسة الثانية — HTML المتقدم</h1>
+  <p class="tags-line">الجداول • النماذج • Semantic HTML • الوسائط</p>
+  <div class="author-line">👤 المؤلف: <b>Eng. Hasan Hajjar</b> &nbsp;·&nbsp; Software Engineer &amp; AI Engineer</div>
+</div>
+
+<div class="goals-card">
+  <h2>🎯 أهداف الجلسة الثانية</h2>
+  <ul class="goal-list"><li>بناء جداول HTML احترافية مع دمج الخلايا</li><li>إنشاء نماذج (Forms) تفاعلية كاملة بجميع أنواع حقول الإدخال</li><li>التحقق من صحة النموذج (Form Validation) باستخدام HTML5</li><li>استخدام عناصر HTML الدلالية (Semantic HTML) بشكل صحيح</li><li>تضمين الوسائط: الصوت والفيديو في صفحة الويب</li><li>فهم أهمية Semantic HTML لـ SEO وإمكانية الوصول</li><li>بناء مشروع صفحة تسجيل كاملة باستخدام جميع المفاهيم</li></ul>
+</div><div class="callout info"><span class="callout-title">🔁 مراجعة سريعة من الجلسة الأولى</span><p>✔ هيكل HTML: DOCTYPE — html — head — body</p><p>✔ عناصر النص: h1–h6, p, strong, em, mark, del</p><p>✔ الروابط: &lt;a href&gt; — target — mailto — tel</p><p>✔ الصور: &lt;img src alt width height&gt;</p><p>✔ القوائم: ul, ol, li — والقوائم المتداخلة</p></div>
+<div class="part"><div class="part-head"><span class="p-icon">📊</span><h2>الجزء الأول: الجداول في HTML (Tables)</h2></div><p class="blk-para">الجداول تُستخدم لعرض البيانات المنظمة في صفوف وأعمدة. من المهم استخدامها فقط للبيانات الجدولية، وليس للتخطيط (Layout).</p><div class="subsection"><div class="sub-head"><span class="sub-num">1.1</span><h3>بنية الجدول الأساسية</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الوسم</th><th>الوظيفة</th></tr></thead><tbody><tr><td>&lt;table&gt;</td><td>الحاوية الرئيسية للجدول</td></tr><tr><td>&lt;thead&gt;</td><td>قسم رأس الجدول (العناوين)</td></tr><tr><td>&lt;tbody&gt;</td><td>قسم جسم الجدول (البيانات)</td></tr><tr><td>&lt;tfoot&gt;</td><td>قسم تذييل الجدول (الإجماليات)</td></tr><tr><td>&lt;tr&gt;</td><td>صف جديد (Table Row)</td></tr><tr><td>&lt;th&gt;</td><td>خلية عنوان — تظهر بخط غامق ومتوسطة تلقائياً</td></tr><tr><td>&lt;td&gt;</td><td>خلية بيانات عادية (Table Data)</td></tr><tr><td>&lt;caption&gt;</td><td>عنوان الجدول فوقه</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.2</span><h3>مثال: جدول بسيط</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;table border="1"&gt;
+  &lt;caption&gt;جدول درجات الطلاب&lt;/caption&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;اسم الطالب&lt;/th&gt;
+      &lt;th&gt;المادة&lt;/th&gt;
+      &lt;th&gt;الدرجة&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;أحمد محمد&lt;/td&gt;
+      &lt;td&gt;HTML&lt;/td&gt;
+      &lt;td&gt;95&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;سارة علي&lt;/td&gt;
+      &lt;td&gt;CSS&lt;/td&gt;
+      &lt;td&gt;88&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;المتوسط&lt;/td&gt;
+      &lt;td&gt;91.5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+
+&lt;/table&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.3</span><h3>دمج الخلايا (Spanning)</h3></div><p class="blk-para">أحياناً نحتاج إلى دمج خلايا متعددة معاً:</p><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخاصية</th><th>الشرح والاستخدام</th></tr></thead><tbody><tr><td>colspan="2"</td><td>دمج عمودين أفقياً (يمتد لليمين)</td></tr><tr><td>colspan="3"</td><td>دمج ثلاثة أعمدة أفقياً</td></tr><tr><td>rowspan="2"</td><td>دمج صفين رأسياً (يمتد للأسفل)</td></tr><tr><td>rowspan="3"</td><td>دمج ثلاثة صفوف رأسياً</td></tr></tbody></table></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- مثال دمج الأعمدة والصفوف --&gt;
+&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th colspan="3"&gt;جدول المواعيد الأسبوعي&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;اليوم&lt;/th&gt;
+      &lt;th&gt;الصباح&lt;/th&gt;
+      &lt;th&gt;المساء&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td rowspan="2"&gt;الأحد&lt;/td&gt;
+      &lt;td&gt;HTML&lt;/td&gt;
+      &lt;td&gt;CSS&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;مراجعة شاملة&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.4</span><h3>خصائص تنسيق الجدول</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخاصية</th><th>تُكتب في</th><th>الوظيفة</th></tr></thead><tbody><tr><td>border</td><td>&lt;table&gt;</td><td>سماكة الإطار الخارجي</td></tr><tr><td>cellpadding</td><td>&lt;table&gt;</td><td>المسافة الداخلية للخلية</td></tr><tr><td>cellspacing</td><td>&lt;table&gt;</td><td>المسافة بين الخلايا</td></tr><tr><td>width</td><td>&lt;table&gt; أو &lt;td&gt;</td><td>عرض الجدول أو الخلية</td></tr><tr><td>align</td><td>&lt;td&gt; أو &lt;th&gt;</td><td>محاذاة المحتوى (left/right/center)</td></tr><tr><td>bgcolor</td><td>&lt;tr&gt; أو &lt;td&gt;</td><td>لون خلفية الصف أو الخلية</td></tr></tbody></table></div><div class="callout tip"><span class="callout-title">💡 نصيحة احترافية</span><p>لا تستخدم border وbgcolor وغيرها من خصائص الجدول القديمة في المشاريع الحديثة.</p><p>استخدم CSS لتنسيق الجداول — سنتعلم ذلك في مرحلة CSS.</p><p>الخصائص القديمة مذكورة هنا لفهم الكودات القديمة فقط.</p></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.5</span><h3>مثال متكامل: جدول برنامج الكورس</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;table border="1" cellpadding="8" cellspacing="0" width="100%"&gt;
+  &lt;caption&gt;&lt;strong&gt;برنامج كورس Front-End&lt;/strong&gt;&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr bgcolor="#1A3C5E"&gt;
+      &lt;th style="color:white"&gt;#&lt;/th&gt;
+      &lt;th style="color:white"&gt;الجلسة&lt;/th&gt;
+      &lt;th style="color:white"&gt;المحتوى&lt;/th&gt;
+      &lt;th style="color:white"&gt;المدة&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td align="center"&gt;1&lt;/td&gt;
+      &lt;td&gt;مقدمة HTML&lt;/td&gt;
+      &lt;td&gt;الهيكل الأساسي، العناصر، الروابط&lt;/td&gt;
+      &lt;td align="center"&gt;3 ساعات&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr bgcolor="#EBF3FB"&gt;
+      &lt;td align="center"&gt;2&lt;/td&gt;
+      &lt;td&gt;HTML المتقدم&lt;/td&gt;
+      &lt;td&gt;الجداول، النماذج، Semantic HTML&lt;/td&gt;
+      &lt;td align="center"&gt;3 ساعات&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td align="center" colspan="3"&gt;&lt;strong&gt;المجموع&lt;/strong&gt;&lt;/td&gt;
+      &lt;td align="center"&gt;&lt;strong&gt;6 ساعات&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">📋</span><h2>الجزء الثاني: النماذج في HTML (Forms)</h2></div><p class="blk-para">النماذج هي العنصر الأساسي للتفاعل مع المستخدم في الويب — تسجيل الدخول، الاشتراك، البحث، التواصل، وغيرها كلها تعتمد على Forms.</p><div class="subsection"><div class="sub-head"><span class="sub-num">2.1</span><h3>عنصر النموذج الرئيسي &lt;form&gt;</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>خاصية &lt;form&gt;</th><th>الشرح</th></tr></thead><tbody><tr><td>action</td><td>عنوان URL الذي تُرسَل إليه البيانات</td></tr><tr><td>method="get"</td><td>يُرسِل البيانات في عنوان URL (مناسب للبحث)</td></tr><tr><td>method="post"</td><td>يُرسِل البيانات مخفية (مناسب للتسجيل وكلمات المرور)</td></tr><tr><td>enctype</td><td>طريقة ترميز البيانات (مهم عند رفع الملفات)</td></tr><tr><td>novalidate</td><td>إلغاء التحقق التلقائي من HTML5</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.2</span><h3>عنصر الإدخال &lt;input&gt;</h3></div><p class="blk-para">عنصر &lt;input&gt; هو الأكثر استخداماً في النماذج. نوعه يتحدد بخاصية type:</p><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>النوع (type)</th><th>المظهر</th><th>الاستخدام</th></tr></thead><tbody><tr><td>text</td><td>حقل نص عادي</td><td>الاسم، العنوان، العنوان</td></tr><tr><td>email</td><td>حقل البريد الإلكتروني</td><td>يتحقق تلقائياً من صيغة البريد</td></tr><tr><td>password</td><td>حقل كلمة المرور</td><td>يُخفي النص بنقاط أو نجوم</td></tr><tr><td>number</td><td>حقل رقمي</td><td>الأرقام مع أسهم الزيادة والنقصان</td></tr><tr><td>tel</td><td>رقم الهاتف</td><td>لوحة مفاتيح رقمية على الجوال</td></tr><tr><td>date</td><td>منتقي التاريخ</td><td>يعرض تقويماً للاختيار</td></tr><tr><td>time</td><td>منتقي الوقت</td><td>يعرض ساعة للاختيار</td></tr><tr><td>url</td><td>رابط إلكتروني</td><td>يتحقق من صيغة الرابط</td></tr><tr><td>search</td><td>حقل البحث</td><td>يظهر زر مسح تلقائياً</td></tr><tr><td>range</td><td>شريط تمرير</td><td>لاختيار قيمة ضمن نطاق</td></tr><tr><td>color</td><td>منتقي الألوان</td><td>يعرض لوحة ألوان</td></tr><tr><td>file</td><td>رفع ملف</td><td>لاختيار ملف من الجهاز</td></tr><tr><td>checkbox</td><td>مربع اختيار</td><td>اختيار متعدد (نعم/لا)</td></tr><tr><td>radio</td><td>زر اختيار</td><td>اختيار واحد من مجموعة</td></tr><tr><td>hidden</td><td>حقل مخفي</td><td>بيانات مخفية ترسل مع النموذج</td></tr><tr><td>submit</td><td>زر الإرسال</td><td>يرسل النموذج</td></tr><tr><td>reset</td><td>زر الإعادة</td><td>يمسح جميع حقول النموذج</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.3</span><h3>خصائص &lt;input&gt; الأساسية</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخاصية</th><th>الشرح والأثر</th></tr></thead><tbody><tr><td>name</td><td>اسم الحقل — ضروري لإرسال البيانات</td></tr><tr><td>id</td><td>معرّف فريد — يُستخدم مع &lt;label&gt;</td></tr><tr><td>value</td><td>القيمة الافتراضية أو قيمة الزر</td></tr><tr><td>placeholder</td><td>نص تلميح يختفي عند الكتابة</td></tr><tr><td>required</td><td>الحقل إلزامي — لا يُرسَل النموذج بدونه</td></tr><tr><td>disabled</td><td>تعطيل الحقل — لا يمكن التفاعل معه</td></tr><tr><td>readonly</td><td>قراءة فقط — يُرسَل مع النموذج</td></tr><tr><td>maxlength</td><td>الحد الأقصى لعدد الأحرف</td></tr><tr><td>minlength</td><td>الحد الأدنى لعدد الأحرف</td></tr><tr><td>min / max</td><td>الحد الأدنى والأقصى للأرقام والتواريخ</td></tr><tr><td>pattern</td><td>نمط Regex للتحقق من الصيغة</td></tr><tr><td>autocomplete</td><td>تفعيل/إلغاء الإكمال التلقائي</td></tr><tr><td>autofocus</td><td>يضع المؤشر تلقائياً على الحقل عند فتح الصفحة</td></tr><tr><td>multiple</td><td>السماح بتحديد أكثر من قيمة (مع file وemail)</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.4</span><h3>عنصر التسمية &lt;label&gt;</h3></div><p class="blk-para">يُستخدم &lt;label&gt; لربط النص التوضيحي بحقل الإدخال. عند النقر على التسمية، ينتقل التركيز للحقل المرتبط:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- الطريقة الأولى: ربط بـ for و id --&gt;
+&lt;label for="username"&gt;اسم المستخدم:&lt;/label&gt;
+&lt;input type="text" id="username" name="username" /&gt;
+
+&lt;!-- الطريقة الثانية: تغليف الحقل داخل label --&gt;
+&lt;label&gt;
+  البريد الإلكتروني:
+  &lt;input type="email" name="email" /&gt;
+&lt;/label&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.5</span><h3>عناصر أخرى مهمة في النماذج</h3></div><h4 class="mini-head">◆ القائمة المنسدلة &lt;select&gt;</h4><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;label for="country"&gt;الدولة:&lt;/label&gt;
+&lt;select id="country" name="country"&gt;
+  &lt;option value=""&gt;-- اختر دولتك --&lt;/option&gt;
+  &lt;option value="sa"&gt;المملكة العربية السعودية&lt;/option&gt;
+  &lt;option value="ae" selected&gt;الإمارات العربية المتحدة&lt;/option&gt;
+  &lt;option value="eg"&gt;مصر&lt;/option&gt;
+  &lt;option value="jo"&gt;الأردن&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- مع تجميع الخيارات --&gt;
+&lt;select name="city"&gt;
+  &lt;optgroup label="الخليج"&gt;
+    &lt;option value="riyadh"&gt;الرياض&lt;/option&gt;
+    &lt;option value="dubai"&gt;دبي&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="شمال أفريقيا"&gt;
+    &lt;option value="cairo"&gt;القاهرة&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><h4 class="mini-head">◆ منطقة النص &lt;textarea&gt;</h4><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;label for="message"&gt;رسالتك:&lt;/label&gt;
+&lt;textarea
+  id="message"
+  name="message"
+  rows="6"
+  cols="50"
+  placeholder="اكتب رسالتك هنا..."
+  maxlength="500"
+  required&gt;
+&lt;/textarea&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><h4 class="mini-head">◆ تجميع الحقول &lt;fieldset&gt; و &lt;legend&gt;</h4><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;fieldset&gt;
+  &lt;legend&gt;البيانات الشخصية&lt;/legend&gt;
+  &lt;label for="fname"&gt;الاسم الأول:&lt;/label&gt;
+  &lt;input type="text" id="fname" name="fname" required /&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;الاسم الأخير:&lt;/label&gt;
+  &lt;input type="text" id="lname" name="lname" required /&gt;
+&lt;/fieldset&gt;
+
+&lt;fieldset&gt;
+  &lt;legend&gt;بيانات الاتصال&lt;/legend&gt;
+  &lt;label for="phone"&gt;الهاتف:&lt;/label&gt;
+  &lt;input type="tel" id="phone" name="phone" /&gt;
+&lt;/fieldset&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.6</span><h3>التحقق من صحة النموذج (HTML5 Validation)</h3></div><p class="blk-para">HTML5 يوفر تحققاً تلقائياً من الحقول دون الحاجة لـ JavaScript:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- التحقق من البريد الإلكتروني --&gt;
+&lt;input type="email" required /&gt;
+
+&lt;!-- الحد الأدنى والأقصى لكلمة المرور --&gt;
+&lt;input type="password" minlength="8" maxlength="20" required /&gt;
+
+&lt;!-- التحقق برقم هاتف سعودي بنمط معين --&gt;
+&lt;input
+  type="tel"
+  pattern="^05[0-9]{8}$"
+  placeholder="05xxxxxxxx"
+  title="أدخل رقم جوال سعودي صحيح"
+  required
+/&gt;
+
+&lt;!-- التحقق من نطاق العمر --&gt;
+&lt;input type="number" name="age" min="18" max="65" required /&gt;
+
+&lt;!-- التحقق من تاريخ مستقبلي --&gt;
+&lt;input type="date" name="booking" min="2025-01-01" required /&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🏛️</span><h2>الجزء الثالث: HTML الدلالي (Semantic HTML)</h2></div><p class="blk-para">Semantic HTML يعني استخدام وسوم HTML التي تحمل معنى وصفياً واضحاً يعبّر عن وظيفة المحتوى، وليس فقط عن مظهره.</p><div class="subsection"><div class="sub-head"><span class="sub-num">3.1</span><h3>لماذا Semantic HTML مهم؟</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الفائدة</th><th>التفاصيل</th></tr></thead><tbody><tr><td>SEO محركات البحث</td><td>جوجل وبينج يفهمان هيكل الصفحة ويُرتّبانها أفضل</td></tr><tr><td>إمكانية الوصول</td><td>قارئات الشاشة للمكفوفين تتنقل بين الأقسام بسهولة</td></tr><tr><td>قابلية الصيانة</td><td>الكود أكثر وضوحاً وسهولة في الفهم والتعديل</td></tr><tr><td>الأداء</td><td>المتصفحات تُحسِّن عرض الصفحات الدلالية</td></tr><tr><td>التعاون</td><td>فريق العمل يفهم هيكل الصفحة بسرعة</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.2</span><h3>الفرق: div مقابل Semantic HTML</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- ❌ الطريقة القديمة — غير دلالية --&gt;
+&lt;div id="header"&gt;...&lt;/div&gt;
+&lt;div id="nav"&gt;...&lt;/div&gt;
+&lt;div id="main"&gt;
+  &lt;div id="article"&gt;...&lt;/div&gt;
+  &lt;div id="sidebar"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footer"&gt;...&lt;/div&gt;
+
+&lt;!-- ✅ الطريقة الصحيحة — دلالية --&gt;
+&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;
+  &lt;article&gt;...&lt;/article&gt;
+  &lt;aside&gt;...&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.3</span><h3>العناصر الدلالية الرئيسية</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>العنصر</th><th>الوظيفة والاستخدام</th></tr></thead><tbody><tr><td>&lt;header&gt;</td><td>رأس الصفحة أو رأس قسم — الشعار وعنوان الموقع</td></tr><tr><td>&lt;nav&gt;</td><td>قائمة التنقل الرئيسية — روابط الصفحات</td></tr><tr><td>&lt;main&gt;</td><td>المحتوى الرئيسي للصفحة — يُستخدم مرة واحدة فقط</td></tr><tr><td>&lt;article&gt;</td><td>محتوى مستقل قائم بذاته — مقال، منشور، تعليق</td></tr><tr><td>&lt;section&gt;</td><td>قسم منطقي من المحتوى — له عنوان خاص</td></tr><tr><td>&lt;aside&gt;</td><td>محتوى جانبي — إعلانات، روابط ذات صلة، معلومات إضافية</td></tr><tr><td>&lt;footer&gt;</td><td>تذييل الصفحة أو القسم — حقوق النشر، روابط</td></tr><tr><td>&lt;figure&gt;</td><td>حاوية للصور والمخططات مع تسمية</td></tr><tr><td>&lt;figcaption&gt;</td><td>تسمية توضيحية للصورة داخل &lt;figure&gt;</td></tr><tr><td>&lt;time&gt;</td><td>تاريخ أو وقت بصيغة آلية مقروءة</td></tr><tr><td>&lt;address&gt;</td><td>معلومات الاتصال</td></tr><tr><td>&lt;mark&gt;</td><td>نص مُميَّز / مُبرَّز</td></tr><tr><td>&lt;details&gt;</td><td>محتوى قابل للطي والتوسيع</td></tr><tr><td>&lt;summary&gt;</td><td>عنوان قابل للنقر لعنصر &lt;details&gt;</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.4</span><h3>مثال: هيكل صفحة موقع كامل</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;موقع أكاديمية التقنية&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- رأس الموقع --&gt;
+  &lt;header&gt;
+    &lt;h1&gt;أكاديمية التقنية&lt;/h1&gt;
+    &lt;p&gt;نبني مطوّرين المستقبل&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;!-- قائمة التنقل --&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="index.html"&gt;الرئيسية&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="courses.html"&gt;الكورسات&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="about.html"&gt;من نحن&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="contact.html"&gt;تواصل معنا&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- المحتوى الرئيسي --&gt;
+  &lt;main&gt;
+
+    &lt;!-- قسم البطل الرئيسي --&gt;
+    &lt;section id="hero"&gt;
+      &lt;h2&gt;ابدأ رحلتك في عالم البرمجة&lt;/h2&gt;
+      &lt;p&gt;تعلّم HTML وCSS وJavaScript وReact&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;!-- مقال تعليمي --&gt;
+    &lt;article&gt;
+      &lt;h2&gt;ما هو HTML؟&lt;/h2&gt;
+      &lt;p&gt;HTML هي لغة هيكلة صفحات الويب...&lt;/p&gt;
+      &lt;figure&gt;
+        &lt;img src="html-logo.png" alt="شعار HTML5" /&gt;
+        &lt;figcaption&gt;شعار HTML5 الرسمي&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;p&gt;نُشر بتاريخ: &lt;time datetime="2025-01-15"&gt;15 يناير 2025&lt;/time&gt;&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;!-- قسم جانبي --&gt;
+    &lt;aside&gt;
+      &lt;h3&gt;مقالات ذات صلة&lt;/h3&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;مقدمة إلى CSS&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;تعلم JavaScript&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+
+  &lt;/main&gt;
+
+  &lt;!-- تذييل الصفحة --&gt;
+  &lt;footer&gt;
+    &lt;address&gt;
+      &lt;p&gt;تواصل معنا: &lt;a href="mailto:info@academy.com"&gt;info@academy.com&lt;/a&gt;&lt;/p&gt;
+    &lt;/address&gt;
+    &lt;p&gt;&lt;small&gt;© 2025 أكاديمية التقنية — جميع الحقوق محفوظة&lt;/small&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.5</span><h3>عنصري &lt;details&gt; و &lt;summary&gt;</h3></div><p class="blk-para">يُستخدمان لإنشاء محتوى قابل للطي (Accordion) دون الحاجة لـ JavaScript:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;details&gt;
+  &lt;summary&gt;ما هي متطلبات الكورس؟&lt;/summary&gt;
+  &lt;p&gt;لا يلزم أي خبرة سابقة. يكفي أن تمتلك:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;حاسوب مع اتصال إنترنت&lt;/li&gt;
+    &lt;li&gt;متصفح حديث (Chrome أو Edge)&lt;/li&gt;
+    &lt;li&gt;رغبة صادقة في التعلم&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;
+
+&lt;details open&gt;
+  &lt;summary&gt;ما مدة الكورس؟&lt;/summary&gt;
+  &lt;p&gt;مدة الكورس 45 جلسة تدريبية، 3 ساعات لكل جلسة.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🎬</span><h2>الجزء الرابع: الوسائط في HTML (Media)</h2></div><p class="blk-para">HTML5 أضافت دعماً أصلياً للصوت والفيديو دون الحاجة لإضافات خارجية مثل Flash.</p><div class="subsection"><div class="sub-head"><span class="sub-num">4.1</span><h3>الفيديو &lt;video&gt;</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- فيديو أساسي --&gt;
+&lt;video width="640" height="360" controls&gt;
+  &lt;source src="video.mp4" type="video/mp4" /&gt;
+  &lt;source src="video.webm" type="video/webm" /&gt;
+  &lt;p&gt;متصفحك لا يدعم تشغيل الفيديو.&lt;/p&gt;
+&lt;/video&gt;
+
+&lt;!-- فيديو مع خيارات متقدمة --&gt;
+&lt;video
+  width="100%"
+  controls
+  autoplay
+  muted
+  loop
+  poster="thumbnail.jpg"
+  preload="metadata"&gt;
+  &lt;source src="intro.mp4" type="video/mp4" /&gt;
+&lt;/video&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخاصية</th><th>الشرح</th></tr></thead><tbody><tr><td>controls</td><td>إظهار أزرار التحكم (تشغيل، إيقاف، صوت)</td></tr><tr><td>autoplay</td><td>تشغيل تلقائي عند تحميل الصفحة</td></tr><tr><td>muted</td><td>كتم الصوت (ضروري مع autoplay في المتصفحات الحديثة)</td></tr><tr><td>loop</td><td>تشغيل متكرر عند الانتهاء</td></tr><tr><td>poster</td><td>صورة مصغرة تظهر قبل التشغيل</td></tr><tr><td>preload</td><td>تحميل مسبق: none/metadata/auto</td></tr><tr><td>width / height</td><td>أبعاد عنصر الفيديو بالبيكسل</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.2</span><h3>الصوت &lt;audio&gt;</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- صوت أساسي --&gt;
+&lt;audio controls&gt;
+  &lt;source src="music.mp3" type="audio/mpeg" /&gt;
+  &lt;source src="music.ogg" type="audio/ogg" /&gt;
+  &lt;p&gt;متصفحك لا يدعم تشغيل الصوت.&lt;/p&gt;
+&lt;/audio&gt;
+
+&lt;!-- صوت مع خيارات --&gt;
+&lt;audio controls loop preload="none"&gt;
+  &lt;source src="podcast.mp3" type="audio/mpeg" /&gt;
+&lt;/audio&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.3</span><h3>تضمين خرائط جوجل وYouTube &lt;iframe&gt;</h3></div><p class="blk-para">عنصر &lt;iframe&gt; يُستخدم لتضمين صفحة ويب أو محتوى خارجي داخل صفحتك:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- تضمين فيديو YouTube --&gt;
+&lt;iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  title="عنوان الفيديو"
+  frameborder="0"
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+
+&lt;!-- تضمين خريطة Google Maps --&gt;
+&lt;iframe
+  src="https://www.google.com/maps/embed?pb=..."
+  width="600"
+  height="450"
+  style="border:0"
+  allowfullscreen
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.4</span><h3>صيغ الملفات المدعومة</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>النوع</th><th>الصيغ المدعومة في المتصفحات الحديثة</th></tr></thead><tbody><tr><td>فيديو</td><td>MP4 (H.264) — WebM — Ogg</td></tr><tr><td>صوت</td><td>MP3 — WAV — OGG — AAC</td></tr><tr><td>صور</td><td>JPG — PNG — GIF — WebP — SVG — AVIF</td></tr></tbody></table></div><div class="callout warning"><span class="callout-title">⚠️ تنبيه مهم بشأن autoplay</span><p>المتصفحات الحديثة (Chrome, Firefox, Edge) تمنع التشغيل التلقائي مع الصوت.</p><p>لتعمل autoplay يجب إضافة muted أيضاً.</p><p>هذا القرار اتُّخِذ لحماية تجربة المستخدم من المواقع المزعجة.</p></div></div></div><div class="part"><div class="part-head"><span class="p-icon">💻</span><h2>الجزء الخامس: المشروع التطبيقي — صفحة التسجيل</h2></div><div class="project-box"><p class="blk-para">سنبني معاً صفحة تسجيل كاملة لأكاديمية تقنية تجمع كل ما تعلمناه في الجلستين الأولى والثانية.</p><div class="subsection"><div class="sub-head"><h3>الكود الكامل للمشروع</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;التسجيل في أكاديمية التقنية&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;🎓 أكاديمية التقنية&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;a href="index.html"&gt;الرئيسية&lt;/a&gt; |
+      &lt;a href="courses.html"&gt;الكورسات&lt;/a&gt; |
+      &lt;a href="register.html"&gt;التسجيل&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;سجّل في كورس Front-End الآن&lt;/h2&gt;
+
+      &lt;!-- جدول المقارنة بين الخطط --&gt;
+      &lt;h3&gt;اختر خطتك:&lt;/h3&gt;
+      &lt;table border="1" cellpadding="10" cellspacing="0"&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;الميزة&lt;/th&gt;
+            &lt;th&gt;الخطة المجانية&lt;/th&gt;
+            &lt;th&gt;الخطة المدفوعة&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;عدد الجلسات&lt;/td&gt;
+            &lt;td&gt;5 جلسات&lt;/td&gt;
+            &lt;td&gt;45 جلسة&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;شهادة إتمام&lt;/td&gt;
+            &lt;td&gt;❌&lt;/td&gt;
+            &lt;td&gt;✅&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;السعر&lt;/td&gt;
+            &lt;td&gt;مجاني&lt;/td&gt;
+            &lt;td&gt;1500 ريال&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+
+      &lt;!-- نموذج التسجيل --&gt;
+      &lt;h3&gt;بيانات التسجيل:&lt;/h3&gt;
+      &lt;form action="/register" method="post"&gt;
+
+        &lt;fieldset&gt;
+          &lt;legend&gt;البيانات الشخصية&lt;/legend&gt;
+          &lt;label for="fullname"&gt;الاسم الكامل: *&lt;/label&gt;&lt;br&gt;
+          &lt;input type="text" id="fullname" name="fullname"
+                 placeholder="أحمد محمد العلي" required minlength="5" /&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;label for="email"&gt;البريد الإلكتروني: *&lt;/label&gt;&lt;br&gt;
+          &lt;input type="email" id="email" name="email"
+                 placeholder="ahmed@example.com" required /&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;label for="phone"&gt;رقم الجوال: *&lt;/label&gt;&lt;br&gt;
+          &lt;input type="tel" id="phone" name="phone"
+                 placeholder="05xxxxxxxx"
+                 pattern="^05[0-9]{8}$"
+                 title="أدخل رقم جوال سعودي (05xxxxxxxx)" required /&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;label for="birthdate"&gt;تاريخ الميلاد:&lt;/label&gt;&lt;br&gt;
+          &lt;input type="date" id="birthdate" name="birthdate"
+                 min="1970-01-01" max="2007-12-31" /&gt;&lt;br&gt;&lt;br&gt;
+        &lt;/fieldset&gt;
+
+        &lt;fieldset&gt;
+          &lt;legend&gt;بيانات الكورس&lt;/legend&gt;
+
+          &lt;label for="level"&gt;مستواك الحالي: *&lt;/label&gt;&lt;br&gt;
+          &lt;select id="level" name="level" required&gt;
+            &lt;option value=""&gt;-- اختر مستواك --&lt;/option&gt;
+            &lt;option value="beginner"&gt;مبتدئ تماماً&lt;/option&gt;
+            &lt;option value="basic"&gt;لديّ أساسيات&lt;/option&gt;
+            &lt;option value="intermediate"&gt;متوسط&lt;/option&gt;
+          &lt;/select&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;p&gt;الخطة المختارة: *&lt;/p&gt;
+          &lt;input type="radio" id="free" name="plan" value="free" /&gt;
+          &lt;label for="free"&gt;الخطة المجانية&lt;/label&gt;&lt;br&gt;
+          &lt;input type="radio" id="paid" name="plan" value="paid" checked /&gt;
+          &lt;label for="paid"&gt;الخطة المدفوعة — 1500 ريال&lt;/label&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;p&gt;اهتماماتك (اختر أكثر من واحد):&lt;/p&gt;
+          &lt;input type="checkbox" id="html" name="interests" value="html" checked /&gt;
+          &lt;label for="html"&gt;HTML&lt;/label&gt;&lt;br&gt;
+          &lt;input type="checkbox" id="css" name="interests" value="css" /&gt;
+          &lt;label for="css"&gt;CSS&lt;/label&gt;&lt;br&gt;
+          &lt;input type="checkbox" id="js" name="interests" value="js" /&gt;
+          &lt;label for="js"&gt;JavaScript&lt;/label&gt;&lt;br&gt;
+          &lt;input type="checkbox" id="react" name="interests" value="react" /&gt;
+          &lt;label for="react"&gt;React&lt;/label&gt;&lt;br&gt;&lt;br&gt;
+
+          &lt;label for="notes"&gt;ملاحظات إضافية:&lt;/label&gt;&lt;br&gt;
+          &lt;textarea id="notes" name="notes" rows="4"
+                    placeholder="أي تفاصيل إضافية تريد مشاركتها..."&gt;&lt;/textarea&gt;
+        &lt;/fieldset&gt;
+
+        &lt;br&gt;
+        &lt;input type="checkbox" id="terms" name="terms" required /&gt;
+        &lt;label for="terms"&gt;أوافق على &lt;a href="terms.html"&gt;الشروط والأحكام&lt;/a&gt; *&lt;/label&gt;
+        &lt;br&gt;&lt;br&gt;
+
+        &lt;button type="submit"&gt;📩 إرسال طلب التسجيل&lt;/button&gt;
+        &lt;button type="reset"&gt;🔄 مسح النموذج&lt;/button&gt;
+
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2025 أكاديمية التقنية | &lt;a href="mailto:info@academy.com"&gt;info@academy.com&lt;/a&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div></div><div class="part"><div class="part-head"><span class="p-icon">✏️</span><h2>الجزء السادس: تمارين الجلسة الثانية</h2></div><div class="exercise-card"><h4>✏️ تمرين 1 — الجداول<span class="ex-time">20 دقيقة</span></h4><p class="blk-para">أنشئ جدول جدول مواعيد أسبوعي لطالب يتعلم البرمجة:</p><ul class="mini-list"><li>الجدول يحتوي على: اليوم، الوقت، المادة، الحالة</li><li>استخدم colspan لدمج عمود عنوان الجدول الرئيسي على كل الأعمدة</li><li>استخدم rowspan في عمود «اليوم» للأيام التي فيها أكثر من حصة</li><li>أضف thead وtbody وtfoot بشكل صحيح</li><li>في tfoot: اعرض إجمالي عدد الساعات الأسبوعية</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 2 — النماذج<span class="ex-time">25 دقيقة</span></h4><p class="blk-para">أنشئ نموذج «تقديم وظيفي» يحتوي على:</p><ul class="mini-list"><li>حقول: الاسم، البريد، الهاتف، العمر (18-60)، تاريخ الميلاد</li><li>قائمة منسدلة: التخصص (برمجة، تصميم، تسويق رقمي، إدارة)</li><li>أزرار radio: نوع العمل (دوام كامل / جزئي / عن بُعد)</li><li>مربعات checkbox: المهارات (HTML, CSS, JS, Python, SQL)</li><li>textarea: نبذة شخصية (10 أحرف على الأقل، 300 كحد أقصى)</li><li>input file: رفع ملف CV</li><li>جميع الحقول الأساسية required</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 3 — Semantic HTML<span class="ex-time">15 دقيقة</span></h4><p class="blk-para">أعد كتابة الكود التالي باستخدام Semantic HTML:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- ❌ كود قديم يجب إعادة كتابته --&gt;
+&lt;div id="top"&gt;
+  &lt;div id="logo"&gt;&lt;h1&gt;موقعي&lt;/h1&gt;&lt;/div&gt;
+  &lt;div id="menu"&gt;
+    &lt;a href="#"&gt;الرئيسية&lt;/a&gt;
+    &lt;a href="#"&gt;المقالات&lt;/a&gt;
+    &lt;a href="#"&gt;اتصل بنا&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="content"&gt;
+  &lt;div class="post"&gt;
+    &lt;div class="post-title"&gt;&lt;h2&gt;مقال رائع&lt;/h2&gt;&lt;/div&gt;
+    &lt;div class="post-body"&gt;&lt;p&gt;محتوى المقال...&lt;/p&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id="extra"&gt;&lt;h3&gt;روابط مقترحة&lt;/h3&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="bottom"&gt;&lt;p&gt;© 2025 موقعي&lt;/p&gt;&lt;/div&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">📚</span><h2>ملخص الجلسة الثانية</h2></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الموضوع</th><th>أبرز ما تعلمناه</th></tr></thead><tbody><tr><td>الجداول</td><td>table, thead, tbody, tfoot, tr, th, td — colspan وrowspan</td></tr><tr><td>النماذج</td><td>form, input(20 نوع), label, select, textarea, fieldset</td></tr><tr><td>التحقق</td><td>required, minlength, maxlength, min, max, pattern, type</td></tr><tr><td>Semantic HTML</td><td>header, nav, main, article, section, aside, footer, figure</td></tr><tr><td>العناصر التفاعلية</td><td>details, summary — accordion بدون JavaScript</td></tr><tr><td>الوسائط</td><td>video, audio, iframe — YouTube وGoogle Maps</td></tr><tr><td>أفضل الممارسات</td><td>alt للصور — for/id للـ label — method=post للبيانات الحساسة</td></tr></tbody></table></div><div class="subsection"><div class="sub-head"><h3>في الجلسة القادمة...</h3></div><div class="callout preview"><span class="callout-title">🔮 الجلسة الثالثة: مقدمة إلى CSS</span><p>✦ ما هو CSS وكيف يعمل</p><p>✦ طرق ربط CSS بـ HTML: Inline, Internal, External</p><p>✦ المحددات (Selectors): Element, Class, ID, Attribute</p><p>✦ الألوان: HEX, RGB, RGBA, HSL</p><p>✦ الخطوط: font-family, font-size, font-weight, line-height</p><p>✦ الصناديق (Box Model): margin, padding, border, width, height</p><p>✦ مشروع: تنسيق صفحة البطاقة الشخصية بالكامل باستخدام CSS</p></div></div></div>
+<div class="part homework"><div class="part-head"><span class="p-icon">🏠</span><h2>الواجب المنزلي — الجلسة الثانية</h2></div><div class="callout info"><span class="callout-title">📅 موعد التسليم: قبل بداية الجلسة الثالثة</span><p>يُرسَل الملف عبر القناة أو البريد الإلكتروني للمدرب</p></div><div class="subsection"><div class="sub-head"><h3>الواجب: موقع شركة خيالية متعدد الصفحات</h3></div><p class="blk-para">ستبني موقعاً لشركة تقنية خيالية من 3 صفحات HTML مترابطة:</p><h4 class="mini-head">◆ 📄 الصفحة الأولى: الرئيسية (index.html)</h4><ul class="mini-list"><li>header: شعار الشركة + nav بروابط للصفحات الثلاث</li><li>section: مقدمة ترحيبية عن الشركة مع صورة</li><li>section: جدول خدمات الشركة (اسم الخدمة، الوصف، السعر)</li><li>aside: آراء العملاء — 3 تعليقات (استخدم &lt;article&gt; لكل تعليق)</li><li>footer: معلومات التواصل باستخدام &lt;address&gt;</li></ul><h4 class="mini-head">◆ 📄 الصفحة الثانية: من نحن (about.html)</h4><ul class="mini-list"><li>جدول فريق العمل: الاسم، المسمى الوظيفي، سنوات الخبرة، التخصص</li><li>قسم إنجازاتنا: قائمة مرتبة بأهم 5 إنجازات</li><li>قسم الأسئلة الشائعة: 4 أسئلة باستخدام &lt;details&gt; و &lt;summary&gt;</li></ul><h4 class="mini-head">◆ 📄 الصفحة الثالثة: تواصل معنا (contact.html)</h4><ul class="mini-list"><li>نموذج اتصال كامل: الاسم، البريد، الهاتف، الموضوع (select)، الرسالة (textarea)</li><li>جميع الحقول مع validation مناسب</li><li>fieldset لتجميع الحقول</li><li>تضمين خريطة Google Maps باستخدام &lt;iframe&gt;</li></ul><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>معيار التقييم</th><th>الدرجة</th></tr></thead><tbody><tr><td>صحة HTML وربط الصفحات الثلاث بشكل صحيح</td><td>25 نقطة</td></tr><tr><td>الجداول مع colspan وrowspan</td><td>20 نقطة</td></tr><tr><td>النموذج الكامل مع validation</td><td>25 نقطة</td></tr><tr><td>استخدام Semantic HTML بشكل صحيح</td><td>20 نقطة</td></tr><tr><td>تنظيم الكود وتعليقاته والإبداع</td><td>10 نقاط</td></tr></tbody></table></div></div></div>
+<div class="closing-banner">
+  <h3>🏆 أحسنت! أنت الآن تتقن HTML من الألف إلى الياء 🏆</h3>
+  
+  <p class="attribution">Eng. Hasan Hajjar  |  Front-End Master Book  |  Session 02</p>
+</div>
+
+      <div class="complete-bar">
+        <button class="btn btn-primary" data-complete-btn>أكملت هذا الدرس</button>
+        <span style="color:var(--ink-faint); font-size:.85rem;">يُحفَظ تقدّمك محلياً في متصفحك</span>
+      </div>
+
+      <div class="lesson-nav">
+        <a class="nav-arrow prev" href="lesson-01.html"><small>السابق</small><span>الجلسة 01 — مقدمة إلى HTML وأدوات التطوير</span></a>
+        <a class="nav-arrow next is-disabled" href="#"><small>التالي</small><span>الجلسة 03 — قريباً 🔒</span></a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

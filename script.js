@@ -7,12 +7,14 @@
 
   /* ---------- بيانات الجلسات (تُستخدم في الشريط الجانبي والصفحة الرئيسية) ---------- */
   const SESSIONS = [
-    { id: '09', emoji: '⚡', title: 'مقدمة إلى JavaScript', href: 'lesson-09.html', ready: true },
-    { id: '10', emoji: '🌳', title: 'JavaScript والـ DOM', href: 'lesson-10.html', ready: true },
-    { id: '11', emoji: '🔢', title: 'المصفوفات والكائنات المتقدمة', href: 'lesson-11.html', ready: true },
-    { id: '12', emoji: '⏳', title: 'البرمجة غير المتزامنة', href: 'lesson-12.html', ready: true },
-    { id: '13', emoji: '💾', title: 'التخزين المحلي في المتصفح', href: 'lesson-13.html', ready: true },
-    { id: '14', emoji: '🏛️', title: 'البرمجة الكائنية OOP', href: 'lesson-14.html', ready: true },
+    { id: '01', emoji: '🌐', title: 'مقدمة إلى HTML وأدوات التطوير', href: 'lesson-01.html', ready: true },
+    { id: '02', emoji: '🌐', title: 'HTML المتقدم', href: 'lesson-02.html', ready: true },
+    { id: '03', emoji: '🎨', title: 'مقدمة إلى CSS', href: 'lesson-03.html', ready: false },
+    { id: '04', emoji: '🧩', title: 'CSS Flexbox', href: 'lesson-04.html', ready: false },
+    { id: '05', emoji: '🗂️', title: 'CSS Grid', href: 'lesson-05.html', ready: false },
+    { id: '06', emoji: '📱', title: 'التصميم المتجاوب', href: 'lesson-06.html', ready: false },
+    { id: '07', emoji: '🎬', title: 'CSS Animations', href: 'lesson-07.html', ready: false },
+    { id: '08', emoji: '🏆', title: 'المشروع الشامل', href: 'lesson-08.html', ready: false },
   ];
   window.FEMB_SESSIONS = SESSIONS;
 
@@ -161,9 +163,17 @@
     document.querySelectorAll('.code-block').forEach(block => {
       const codeEl = block.querySelector('code');
       if (!codeEl) return;
-      const lang = block.getAttribute('data-lang') || 'javascript';
+      const lang = block.getAttribute('data-lang') || 'html';
       const raw = codeEl.textContent;
-      codeEl.innerHTML = lang === 'html' ? highlightHTML(raw) : highlightJS(raw);
+      if (lang === 'html') {
+        codeEl.innerHTML = highlightHTML(raw);
+      } else if (lang === 'css') {
+        codeEl.innerHTML = highlightCSS(raw);
+      } else if (lang === 'javascript') {
+        codeEl.innerHTML = highlightJS(raw);
+      } else {
+        codeEl.innerHTML = escapeHtml(raw);
+      }
 
       const copyBtn = block.querySelector('.copy-btn');
       if (copyBtn) {
@@ -177,53 +187,55 @@
           }).catch(() => showToast('تعذّر النسخ — انسخ يدوياً'));
         });
       }
-
-      const runBtn = block.querySelector('.run-btn');
-      if (runBtn) {
-        runBtn.addEventListener('click', () => runSandboxed(raw, block));
-      }
     });
+    initPreviewButtons();
   }
 
-  /* ---------- تشغيل الكود في بيئة معزولة (Console وهمية) ---------- */
-  function fmtArg(a) {
-    if (typeof a === 'string') return a;
-    if (a === undefined) return 'undefined';
-    try { return JSON.stringify(a, null, 0); } catch (e) { return String(a); }
+  /* ---------- تلوين CSS (بدون مكتبات خارجية) ---------- */
+  function highlightCSS(code) {
+    let out = escapeHtml(code);
+    out = out.replace(/\/\*[\s\S]*?\*\//g, m => `<span class="tok-com">${m}</span>`);
+    out = out.replace(/(&quot;(?:\\.|[^&"\\])*&quot;|&#39;(?:\\.|[^&'\\])*&#39;)/g, m => `<span class="tok-str">${m}</span>`);
+    out = out.replace(/#[0-9a-fA-F]{3,8}\b/g, m => `<span class="tok-num">${m}</span>`);
+    out = out.replace(/@[a-zA-Z-]+/g, m => `<span class="tok-kw">${m}</span>`);
+    out = out.replace(/([a-zA-Z-]+)(\s*:)(?!:)/g, (m, p1, p2) => `<span class="tok-fn">${p1}</span>${p2}`);
+    out = out.replace(/([.#]?[a-zA-Z_][\w-]*(?:\s*[,>+~]?\s*[.#:]?[a-zA-Z_][\w-]*)*)(\s*\{)/g, (m, p1, p2) => {
+      if (/<span/.test(p1)) return m;
+      return `<span class="tok-kw">${p1}</span>${p2}`;
+    });
+    out = out.replace(/\b(\d+\.?\d*)(px|em|rem|%|vh|vw|fr|deg|s|ms|vmin|vmax)?\b/g, (m, num, unit) => `<span class="tok-num">${num}${unit || ''}</span>`);
+    return out;
   }
 
-  function runSandboxed(code, block) {
-    const outBox = block.querySelector('.output-box');
-    if (!outBox) return;
-    outBox.innerHTML = '<span class="out-label">▍ نتيجة التنفيذ</span>';
-    outBox.classList.add('show');
-
-    const lines = [];
-    const fakeConsole = {
-      log: (...a) => lines.push({ t: 'log', m: a.map(fmtArg).join(' ') }),
-      warn: (...a) => lines.push({ t: 'warn', m: '⚠ ' + a.map(fmtArg).join(' ') }),
-      error: (...a) => lines.push({ t: 'error', m: '✖ ' + a.map(fmtArg).join(' ') }),
-      table: (data) => lines.push({ t: 'log', m: JSON.stringify(data) }),
-      info: (...a) => lines.push({ t: 'log', m: a.map(fmtArg).join(' ') }),
-    };
-
-    try {
-      const fn = new Function('console', '"use strict";\n' + code);
-      fn(fakeConsole);
-      if (lines.length === 0) {
-        lines.push({ t: 'ok', m: '✓ تم تنفيذ الكود بنجاح (لا يوجد ناتج مطبوع عبر console)' });
-      }
-    } catch (err) {
-      lines.push({ t: 'error', m: '✖ خطأ أثناء التنفيذ: ' + err.message });
+  /* ---------- المعاينة الحيّة لـ HTML/CSS ---------- */
+  function buildPreviewDoc(htmlCode, cssCode) {
+    const hasDoc = /<!DOCTYPE/i.test(htmlCode) || /<html[\s>]/i.test(htmlCode);
+    if (hasDoc) {
+      if (cssCode && /<\/head>/i.test(htmlCode)) return htmlCode.replace(/<\/head>/i, `<style>${cssCode}</style></head>`);
+      if (cssCode) return `<style>${cssCode}</style>` + htmlCode;
+      return htmlCode;
     }
+    return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+      <style>body{font-family:'IBM Plex Sans Arabic',sans-serif;margin:16px;color:#1a1a1a;line-height:1.7;}
+      ${cssCode || ''}</style></head><body>${htmlCode}</body></html>`;
+  }
 
-    lines.forEach(l => {
-      const div = document.createElement('div');
-      div.className = 'output-line ' + l.t;
-      div.textContent = l.m;
-      outBox.appendChild(div);
+  function initPreviewButtons() {
+    document.querySelectorAll('.preview-group').forEach(group => {
+      const btn = group.querySelector('.preview-btn');
+      const wrap = group.querySelector('.live-preview-wrap');
+      const frame = group.querySelector('.live-preview-frame');
+      const closeBtn = group.querySelector('.live-preview-close');
+      if (!btn || !wrap || !frame) return;
+      btn.addEventListener('click', () => {
+        const htmlCode = group.querySelector('[data-role="html-code"]')?.textContent || '';
+        const cssCode = group.querySelector('[data-role="css-code"]')?.textContent || '';
+        frame.srcdoc = buildPreviewDoc(htmlCode, cssCode);
+        wrap.classList.add('show');
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      if (closeBtn) closeBtn.addEventListener('click', () => wrap.classList.remove('show'));
     });
-    outBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   /* ---------- شارة "تم النسخ" ---------- */
@@ -244,34 +256,50 @@
   /* ---------- طرفية البطل المتحركة (Hero Terminal) ---------- */
   function initHeroTerminal() {
     const el = document.querySelector('[data-hero-code]');
-    const outEl = document.querySelector('[data-hero-out]');
+    const frame = document.querySelector('[data-hero-frame]');
     if (!el) return;
-    const codeLines = [
-      "const student = {",
-      "  name: 'ريم حسن',",
-      "  score: 95",
-      "};",
-      "",
-      "function getGrade({ score }) {",
-      "  if (score >= 90) return 'ممتاز 🏆';",
-      "  if (score >= 60) return 'ناجح ✅';",
-      "  return 'راسب ❌';",
-      "}",
-      "",
-      "console.log(getGrade(student));"
+    const htmlLines = [
+      '<div class="card">',
+      '  <img src="avatar.jpg" class="avatar">',
+      '  <h3>ريم حسن</h3>',
+      '  <p>مطوّرة Front-End 🚀</p>',
+      '</div>',
     ];
-    const full = codeLines.join('\n');
+    const cssLines = [
+      '.card {',
+      '  text-align: center;',
+      '  padding: 24px;',
+      '  border-radius: 16px;',
+      '  background: linear-gradient(135deg,#eef4ff,#fff);',
+      '  box-shadow: 0 10px 30px rgba(20,40,80,.12);',
+      '}',
+      '.avatar {',
+      '  width: 64px; height: 64px;',
+      '  border-radius: 50%;',
+      '}',
+    ];
+    const full = htmlLines.join('\n') + '\n\n' + cssLines.join('\n');
+    const cssOnly = cssLines.join('\n');
+    const htmlOnly = htmlLines.join('\n');
     let i = 0;
     const cursor = '<span class="terminal-cursor"></span>';
 
     function tick() {
       if (i <= full.length) {
-        el.innerHTML = highlightJS(full.slice(0, i)) + cursor;
-        i += 2;
-        setTimeout(tick, 18);
+        el.innerHTML = highlightHTML(full.slice(0, Math.min(i, htmlOnly.length))) +
+          (i > htmlOnly.length ? '\n\n' + highlightCSS(full.slice(htmlOnly.length + 2, i)) : '') + cursor;
+        i += 3;
+        setTimeout(tick, 16);
       } else {
-        if (outEl) outEl.textContent = '› ممتاز 🏆';
-        setTimeout(() => { i = 0; if (outEl) outEl.textContent = ''; tick(); }, 2600);
+        if (frame) {
+          frame.srcdoc = `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>
+            body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;
+            font-family:'IBM Plex Sans Arabic',sans-serif;background:#fafcff;}
+            .avatar{background:#c7d6f5 url() center/cover;}
+            h3{margin:12px 0 4px;color:#101826;} p{color:#6b7280;font-size:13px;margin:0;}
+            ${cssOnly}</style></head><body>${htmlOnly}</body></html>`;
+        }
+        setTimeout(() => { i = 0; tick(); }, 3200);
       }
     }
     tick();
@@ -283,12 +311,14 @@
     if (!grid) return;
     const progress = getProgress();
     const topics = {
-      '09': 'المتغيرات • أنواع البيانات • العمليات • التحكم بالتدفق • الدوال',
-      '10': 'تحديد العناصر • التعديل • الإنشاء • الأحداث • To-Do List',
-      '11': 'map • filter • reduce • Destructuring • Spread • Optional Chaining',
-      '12': 'Callbacks • Promises • async/await • Fetch API',
-      '13': 'localStorage • sessionStorage • Cookies • IndexedDB',
-      '14': 'Classes • Encapsulation • Inheritance • Polymorphism',
+      '01': 'كيف يعمل الويب • أدوات VS Code • أول صفحة HTML • العناصر الأساسية',
+      '02': 'الجداول • النماذج • Semantic HTML • الوسائط',
+      '03': 'المحددات • الألوان • الخطوط • نموذج الصندوق (Box Model)',
+      '04': 'المحاور • justify-content • align-items • أنماط تخطيط شائعة',
+      '05': 'الأعمدة والصفوف • fr وrepeat وminmax • grid-template-areas',
+      '06': 'Media Queries • Mobile-First • الوحدات المرنة',
+      '07': 'Transitions • Keyframes • Transform',
+      '08': 'مشروع شامل يجمع HTML وCSS معاً',
     };
     grid.innerHTML = SESSIONS.map(s => {
       const done = !!progress[s.id];

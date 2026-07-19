@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجلسة 01 — مقدمة إلى HTML وأدوات التطوير | Front-End Master Book</title>
+<meta name="description" content="مقدمة إلى HTML وأدوات التطوير — ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson-id="01">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span>Front-End Master
+        <small>مسار HTML &amp; CSS · م. حسن حجار</small>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#lessons">الجلسات</a>
+      <a href="index.html#about">عن المدرب</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" aria-label="تبديل الوضع الليلي">
+        <span class="moon">🌙</span><span class="sun">☀️</span>
+      </button>
+      <button class="icon-btn sidebar-toggle-btn" aria-label="فهرس الجلسات">📑</button>
+      <button class="icon-btn nav-toggle" aria-label="القائمة">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">الرئيسية</a>
+  <a href="index.html#lessons">الجلسات</a>
+  <a href="index.html#about">عن المدرب</a>
+</div>
+
+<div class="lesson-shell">
+  <aside class="sidebar">
+    <div class="sidebar-title">فهرس الجلسات</div>
+    <div data-sidebar-list></div>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill"></div></div>
+      <span></span>
+    </div>
+  </aside>
+
+  <main class="lesson-main">
+    <div class="container">
+      <div class="lesson-header">
+  <div class="top-row">
+    <span class="emoji-badge">🌐</span>
+    <div>
+      <div class="session-tag">Session 01 &middot; 3 Hours</div>
+    </div>
+  </div>
+  <h1>الجلسة الأولى — مقدمة إلى HTML وأدوات التطوير</h1>
+  
+  <div class="author-line">👤 المؤلف: <b>Eng. Hasan Hajjar</b> &nbsp;·&nbsp; Software Engineer &amp; AI Engineer</div>
+</div>
+
+<div class="goals-card">
+  <h2>🎯 أهداف الجلسة</h2>
+  <ul class="goal-list"><li>فهم ما هو الويب وكيف يعمل بشكل مبسط</li><li>التعرف على دور HTML في بناء صفحات الويب</li><li>تثبيت وإعداد بيئة التطوير VS Code بشكل كامل</li><li>تثبيت الإضافات الأساسية اللازمة للعمل</li><li>إنشاء أول صفحة HTML من الصفر</li><li>فهم هيكل صفحة HTML الأساسي</li><li>استخدام العناصر الأساسية: العناوين والنصوص والروابط والصور</li><li>معاينة الصفحة في المتصفح</li></ul>
+</div>
+<div class="part"><div class="part-head"><span class="p-icon">🌐</span><h2>الجزء الأول: كيف يعمل الإنترنت والويب؟</h2></div><p class="blk-para">قبل أن نبدأ بكتابة الأكواد، يجب أن نفهم ما يحدث خلف الكواليس عندما تفتح موقعاً على الإنترنت.</p><div class="subsection"><div class="sub-head"><span class="sub-num">1.1</span><h3>ما هو الويب؟</h3></div><p class="blk-para">الويب (World Wide Web) هو نظام ضخم من الصفحات والمواقع المترابطة التي تُخزَّن على خوادم (Servers) حول العالم، ويمكن الوصول إليها عبر الإنترنت باستخدام المتصفح (Browser).</p></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.2</span><h3>رحلة الطلب والاستجابة</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخطوة</th><th>ما يحدث</th></tr></thead><tbody><tr><td>1 - الطلب</td><td>تكتب عنوان الموقع في المتصفح (URL)</td></tr><tr><td>2 - DNS</td><td>يُحوَّل الاسم إلى عنوان IP للخادم</td></tr><tr><td>3 - الطلب</td><td>يرسل المتصفح طلباً (HTTP Request) للخادم</td></tr><tr><td>4 - الاستجابة</td><td>يُرسل الخادم ملفات HTML وCSS وJS</td></tr><tr><td>5 - العرض</td><td>يقرأ المتصفح الملفات ويعرض الصفحة</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.3</span><h3>الفرق بين HTML وCSS وJavaScript</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>التقنية</th><th>مهمتها</th></tr></thead><tbody><tr><td>HTML 🏗️</td><td>هيكل الصفحة — المحتوى والعناصر</td></tr><tr><td>CSS 🎨</td><td>تنسيق الصفحة — الألوان والأشكال والتصميم</td></tr><tr><td>JavaScript ⚙️</td><td>التفاعل والحركة والديناميكية</td></tr></tbody></table></div><p class="blk-para">مثال بسيط: المنزل = HTML (الجدران والأبواب) + CSS (الطلاء والديكور) + JavaScript (الأبواب التي تُفتح بالزر)</p></div></div><div class="part"><div class="part-head"><span class="p-icon">🛠️</span><h2>الجزء الثاني: أدوات التطوير</h2></div><p class="blk-para">سنتعرف الآن على الأدوات الأساسية التي يحتاجها كل مطوّر Front-End.</p><div class="subsection"><div class="sub-head"><span class="sub-num">2.1</span><h3>قائمة الأدوات الأساسية</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الأداة</th><th>الوصف والاستخدام</th></tr></thead><tbody><tr><td>VS Code</td><td>محرر الأكواد الرئيسي — مجاني ومفتوح المصدر من Microsoft</td></tr><tr><td>Chrome / Edge</td><td>المتصفح لمعاينة الصفحات وأدوات المطوّر</td></tr><tr><td>Live Server</td><td>إضافة VS Code لمعاينة الصفحة تلقائياً عند الحفظ</td></tr><tr><td>Prettier</td><td>إضافة لتنسيق الأكواد تلقائياً</td></tr><tr><td>Git</td><td>نظام التحكم في الإصدارات (سيُشرح لاحقاً)</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.2</span><h3>تثبيت VS Code خطوة بخطوة</h3></div><h4 class="mini-head">◆ الخطوة الأولى: تحميل VS Code</h4><p class="blk-para">افتح المتصفح وانتقل إلى الموقع الرسمي:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">https://code.visualstudio.com</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><ul class="mini-list"><li>اضغط على زر "Download for Windows" أو اختر نظامك (Mac / Linux)</li><li>سيُنزَّل ملف الإعداد (VSCodeSetup.exe)</li></ul><h4 class="mini-head">◆ الخطوة الثانية: تثبيت البرنامج</h4><ul class="mini-list"><li>افتح ملف الإعداد بضغطة مزدوجة</li><li>اقبل اتفاقية الترخيص واضغط Next</li><li>اختر مجلد التثبيت (يُنصح بالإبقاء على المجلد الافتراضي)</li><li>✅ تأكد من تفعيل خيار: "Add to PATH" و "Open with Code"</li><li>اضغط Install وانتظر اكتمال التثبيت</li><li>اضغط Finish لفتح VS Code</li></ul><h4 class="mini-head">◆ الخطوة الثالثة: تعريب الواجهة (اختياري)</h4><ul class="mini-list"><li>افتح VS Code → اضغط Ctrl+Shift+X لفتح نافذة الإضافات</li><li>ابحث عن: Arabic Language Pack</li><li>اضغط Install ثم أعد تشغيل البرنامج</li></ul></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.3</span><h3>تثبيت الإضافات الأساسية</h3></div><p class="blk-para">الإضافات (Extensions) تُضيف ميزات إضافية لـ VS Code. اضغط Ctrl+Shift+X ثم ابحث عن كل إضافة وثبّتها:</p><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>اسم الإضافة</th><th>الوظيفة</th></tr></thead><tbody><tr><td>Live Server</td><td>معاينة الصفحة في المتصفح تلقائياً عند الحفظ</td></tr><tr><td>Prettier - Code formatter</td><td>تنسيق الكود تلقائياً بشكل جميل ومنظم</td></tr><tr><td>HTML CSS Support</td><td>إكمال تلقائي لكود HTML وCSS</td></tr><tr><td>Auto Rename Tag</td><td>إعادة تسمية الوسوم بشكل تلقائي</td></tr><tr><td>Material Icon Theme</td><td>أيقونات للملفات تسهل التمييز بينها</td></tr><tr><td>One Dark Pro</td><td>سمة ألوان احترافية للكود (اختياري)</td></tr></tbody></table></div></div></div><div class="part"><div class="part-head"><span class="p-icon">🚀</span><h2>الجزء الثالث: إنشاء أول مشروع HTML</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.1</span><h3>إنشاء مجلد المشروع</h3></div><p class="blk-para">من الأفضل دائماً تنظيم مشاريعك في مجلد مخصص:</p><ul class="mini-list"><li>أنشئ مجلداً جديداً على سطح المكتب باسم: my-projects</li><li>داخله أنشئ مجلداً باسم: session01</li><li>افتح VS Code</li><li>اذهب إلى: File → Open Folder → اختر مجلد session01</li></ul></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.2</span><h3>إنشاء أول ملف HTML</h3></div><p class="blk-para">في VS Code، في الشريط الجانبي:</p><ul class="mini-list"><li>اضغط على أيقونة الملف الجديد (New File)</li><li>سمّ الملف: index.html</li><li>اضغط Enter</li></ul><div class="callout tip"><span class="callout-title">💡 لماذا index.html ؟</span><pre class="ascii-diagram">اسم index.html هو الاسم الافتراضي الذي يبحث عنه المتصفح تلقائياً عند فتح أي مجلد.
+عند فتح: http://example.com/ → سيبحث المتصفح تلقائياً عن index.html</pre></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.3</span><h3>هيكل صفحة HTML الأساسي</h3></div><p class="blk-para">اكتب في الملف الرمز ! ثم اضغط Tab — سيُنشئ VS Code الهيكل تلقائياً (Emmet Abbreviation):</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;!-- المحتوى يُكتب هنا --&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.4</span><h3>شرح كل سطر بالتفصيل</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الكود</th><th>الشرح</th></tr></thead><tbody><tr><td>&lt;!DOCTYPE html&gt;</td><td>يُخبر المتصفح أن الملف من نوع HTML5</td></tr><tr><td>&lt;html lang="ar"&gt;</td><td>العنصر الجذري الذي يحتوي كل شيء | lang=ar للغة العربية</td></tr><tr><td>dir="rtl"</td><td>اتجاه الكتابة من اليمين لليسار</td></tr><tr><td>&lt;head&gt;</td><td>قسم المعلومات الخفية عن الصفحة</td></tr><tr><td>charset="UTF-8"</td><td>ترميز النصوص - يدعم العربية والإنجليزية</td></tr><tr><td>viewport</td><td>يجعل الصفحة متجاوبة مع الشاشات المختلفة</td></tr><tr><td>&lt;title&gt;</td><td>عنوان الصفحة الذي يظهر في تبويب المتصفح</td></tr><tr><td>&lt;body&gt;</td><td>قسم المحتوى الذي يراه الزائر</td></tr><tr><td>&lt;!-- --&gt;</td><td>تعليق — لا يظهر في المتصفح، يُستخدم للشرح</td></tr></tbody></table></div></div></div><div class="part"><div class="part-head"><span class="p-icon">📝</span><h2>الجزء الرابع: العناصر الأساسية في HTML</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.1</span><h3>عناصر العناوين (Headings)</h3></div><p class="blk-para">يوفر HTML ستة مستويات من العناوين من h1 إلى h6، حيث h1 هو الأكبر والأهم:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;h1&gt;عنوان رئيسي - الأكبر&lt;/h1&gt;
+&lt;h2&gt;عنوان ثانوي&lt;/h2&gt;
+&lt;h3&gt;عنوان من المستوى الثالث&lt;/h3&gt;
+&lt;h4&gt;عنوان من المستوى الرابع&lt;/h4&gt;
+&lt;h5&gt;عنوان من المستوى الخامس&lt;/h5&gt;
+&lt;h6&gt;عنوان سادس - الأصغر&lt;/h6&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><div class="callout info"><span class="callout-title">📌 قاعدة مهمة</span><p>استخدم h1 مرة واحدة فقط في كل صفحة — هو العنوان الرئيسي.</p><p>الترتيب الهرمي مهم لمحركات البحث (SEO) وإمكانية الوصول (Accessibility).</p></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.2</span><h3>عنصر الفقرة (Paragraph)</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;p&gt;هذه فقرة نصية عادية.&lt;/p&gt;
+
+&lt;p&gt;
+  يمكن أن تحتوي الفقرة على نص طويل.
+  المتصفح يُنسّق المسافات والأسطر تلقائياً.
+&lt;/p&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.3</span><h3>تنسيق النص الأساسي</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الوسم</th><th>الوظيفة</th></tr></thead><tbody><tr><td>&lt;strong&gt;</td><td>نص غامق مهم (Bold) — مهم لـ SEO</td></tr><tr><td>&lt;em&gt;</td><td>نص مائل (Italic) — للتأكيد</td></tr><tr><td>&lt;u&gt;</td><td>نص مسطّر (Underline)</td></tr><tr><td>&lt;br&gt;</td><td>سطر جديد (Line Break) — وسم فارغ</td></tr><tr><td>&lt;hr&gt;</td><td>خط أفقي فاصل (Horizontal Rule)</td></tr><tr><td>&lt;mark&gt;</td><td>تمييز النص بلون (Highlight)</td></tr><tr><td>&lt;small&gt;</td><td>نص صغير</td></tr><tr><td>&lt;del&gt;</td><td>نص محذوف (يظهر بخط عليه)</td></tr></tbody></table></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;p&gt;
+  هذا &lt;strong&gt;نص مهم وغامق&lt;/strong&gt; وهذا
+  &lt;em&gt;نص مائل للتأكيد&lt;/em&gt; وهذا
+  &lt;mark&gt;نص مميز بلون أصفر&lt;/mark&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;السعر القديم: &lt;del&gt;500 ريال&lt;/del&gt; السعر الجديد: &lt;strong&gt;350 ريال&lt;/strong&gt;&lt;/p&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.4</span><h3>الروابط (Links)</h3></div><p class="blk-para">عنصر الرابط &lt;a&gt; هو من أهم عناصر HTML — هو ما يربط الصفحات ببعضها:</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- رابط خارجي يُفتح في نافذة جديدة --&gt;
+&lt;a href="https://www.google.com" target="_blank"&gt;اذهب إلى جوجل&lt;/a&gt;
+
+&lt;!-- رابط لصفحة داخلية --&gt;
+&lt;a href="about.html"&gt;صفحة من نحن&lt;/a&gt;
+
+&lt;!-- رابط للانتقال لقسم في نفس الصفحة --&gt;
+&lt;a href="#section1"&gt;انتقل إلى القسم الأول&lt;/a&gt;
+
+&lt;!-- رابط بريد إلكتروني --&gt;
+&lt;a href="mailto:info@example.com"&gt;راسلنا&lt;/a&gt;
+
+&lt;!-- رابط هاتف --&gt;
+&lt;a href="tel:+966501234567"&gt;اتصل بنا&lt;/a&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الخاصية</th><th>الشرح</th></tr></thead><tbody><tr><td>href</td><td>عنوان الرابط (URL أو مسار الملف)</td></tr><tr><td>target="_blank"</td><td>فتح الرابط في نافذة أو تبويب جديد</td></tr><tr><td>target="_self"</td><td>فتح في نفس النافذة (الإعداد الافتراضي)</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">4.5</span><h3>الصور (Images)</h3></div><p class="blk-para">عنصر الصورة &lt;img&gt; هو وسم فارغ (لا يحتاج وسم إغلاق):</p><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!-- صورة من الإنترنت --&gt;
+&lt;img src="https://example.com/photo.jpg" alt="وصف الصورة" /&gt;
+
+&lt;!-- صورة من نفس المجلد --&gt;
+&lt;img src="logo.png" alt="شعار الشركة" width="200" height="100" /&gt;
+
+&lt;!-- صورة مع رابط --&gt;
+&lt;a href="https://example.com"&gt;
+  &lt;img src="banner.jpg" alt="إعلان" /&gt;
+&lt;/a&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><div class="callout warning"><span class="callout-title">⚠️ الخاصية alt مهمة جداً</span><p>خاصية alt تصف الصورة نصياً — تظهر إذا فشل تحميل الصورة.</p><p>محركات البحث تقرأ alt لفهم محتوى الصور.</p><p>ضرورية لإمكانية الوصول للمكفوفين الذين يستخدمون قارئات الشاشة.</p></div></div></div><div class="part"><div class="part-head"><span class="p-icon">📋</span><h2>الجزء الخامس: القوائم في HTML</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.1</span><h3>القائمة غير المرتبة (Unordered List)</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;ul&gt;
+  &lt;li&gt;HTML — هيكل الصفحة&lt;/li&gt;
+  &lt;li&gt;CSS — تنسيق الصفحة&lt;/li&gt;
+  &lt;li&gt;JavaScript — تفاعل الصفحة&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.2</span><h3>القائمة المرتبة (Ordered List)</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;ol&gt;
+  &lt;li&gt;افتح VS Code&lt;/li&gt;
+  &lt;li&gt;أنشئ ملفاً جديداً&lt;/li&gt;
+  &lt;li&gt;اكتب كود HTML&lt;/li&gt;
+  &lt;li&gt;احفظ الملف&lt;/li&gt;
+  &lt;li&gt;افتح في المتصفح&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.3</span><h3>القوائم المتداخلة (Nested Lists)</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;ul&gt;
+  &lt;li&gt;Front-End
+    &lt;ul&gt;
+      &lt;li&gt;HTML&lt;/li&gt;
+      &lt;li&gt;CSS&lt;/li&gt;
+      &lt;li&gt;JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Back-End
+    &lt;ul&gt;
+      &lt;li&gt;Python&lt;/li&gt;
+      &lt;li&gt;Node.js&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">💻</span><h2>الجزء السادس: المشروع التطبيقي الأول</h2></div><div class="project-box"><p class="blk-para">سنبني معاً صفحة HTML كاملة: بطاقة تعريفية شخصية (Profile Card).</p><div class="subsection"><div class="sub-head"><h3>الكود الكامل للمشروع</h3></div><div class="preview-group">
+  <div class="code-block" data-lang="html">
+    <div class="code-head">
+      <span class="code-lang"><span class="cdot html"></span>HTML</span>
+      <div class="code-actions">
+        <button class="code-btn preview-btn">👁 معاينة حيّة</button>
+        <button class="code-btn copy-btn">📋 نسخ</button>
+      </div>
+    </div>
+    <pre><code data-role="html-code">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;بطاقتي التعريفية&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;مرحباً بكم في صفحتي الشخصية&lt;/h1&gt;
+  &lt;hr&gt;
+
+  &lt;h2&gt;من أنا؟&lt;/h2&gt;
+  &lt;img src="https://via.placeholder.com/150" alt="صورتي الشخصية" /&gt;
+  &lt;p&gt;
+    اسمي &lt;strong&gt;أحمد محمد&lt;/strong&gt;، مطوّر ويب متحمس أتعلم
+    &lt;em&gt;تطوير الواجهات الأمامية&lt;/em&gt; بشغف.
+  &lt;/p&gt;
+
+  &lt;h2&gt;مهاراتي&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;HTML — المستوى: مبتدئ ✅&lt;/li&gt;
+    &lt;li&gt;CSS — المستوى: قيد التعلم 📚&lt;/li&gt;
+    &lt;li&gt;JavaScript — المستوى: قادم قريباً 🚀&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;h2&gt;خطواتي في تعلم البرمجة&lt;/h2&gt;
+  &lt;ol&gt;
+    &lt;li&gt;تعلم HTML&lt;/li&gt;
+    &lt;li&gt;تعلم CSS&lt;/li&gt;
+    &lt;li&gt;تعلم JavaScript&lt;/li&gt;
+    &lt;li&gt;بناء مشاريع حقيقية&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;h2&gt;تواصل معي&lt;/h2&gt;
+  &lt;p&gt;
+    &lt;a href="mailto:ahmed@example.com"&gt;📧 البريد الإلكتروني&lt;/a&gt;
+    &lt;br&gt;
+    &lt;a href="https://github.com" target="_blank"&gt;💻 GitHub&lt;/a&gt;
+  &lt;/p&gt;
+
+  &lt;hr&gt;
+  &lt;p&gt;&lt;small&gt;© 2025 أحمد محمد — Front-End Student&lt;/small&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+  <div class="live-preview-wrap">
+    <div class="live-preview-bar"><span>👁 المعاينة الحيّة</span><button class="live-preview-close">✕ إغلاق</button></div>
+    <iframe class="live-preview-frame" title="معاينة حيّة"></iframe>
+  </div>
+</div><div class="callout info"><span class="callout-title">🔴 كيف تعاين الصفحة؟</span><p>1. احفظ الملف: Ctrl + S</p><p>2. انقر بزر الماوس الأيمن داخل الكود</p><p>3. اختر: Open with Live Server</p><p>   (أو انقر على Go Live في الشريط السفلي)</p><p>4. ستُفتح الصفحة تلقائياً في المتصفح 🎉</p></div></div></div></div><div class="part"><div class="part-head"><span class="p-icon">⌨️</span><h2>الجزء السابع:  اختصارات VS Code الأساسية</h2></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الاختصار</th><th>الوظيفة</th></tr></thead><tbody><tr><td>Ctrl + S</td><td>حفظ الملف</td></tr><tr><td>Ctrl + Z</td><td>تراجع (Undo)</td></tr><tr><td>Ctrl + Y</td><td>إعادة (Redo)</td></tr><tr><td>Ctrl + /</td><td>تحويل السطر لتعليق / إلغاء التعليق</td></tr><tr><td>Ctrl + D</td><td>تحديد الكلمة التالية المشابهة</td></tr><tr><td>Alt + ↑/↓</td><td>نقل السطر لأعلى / أسفل</td></tr><tr><td>Shift + Alt + ↓</td><td>نسخ السطر الحالي للأسفل</td></tr><tr><td>Ctrl + L</td><td>تحديد السطر الحالي كاملاً</td></tr><tr><td>Ctrl + `</td><td>فتح Terminal داخل VS Code</td></tr><tr><td>Ctrl + Shift + P</td><td>فتح قائمة الأوامر (Command Palette)</td></tr><tr><td>Ctrl + B</td><td>إخفاء / إظهار الشريط الجانبي</td></tr><tr><td>Alt + Z</td><td>التفاف النص الطويل (Word Wrap)</td></tr><tr><td>!</td><td>كتابة ! ثم Tab لإنشاء هيكل HTML كامل</td></tr></tbody></table></div></div><div class="part"><div class="part-head"><span class="p-icon">✏️</span><h2>الجزء الثامن: تمارين الجلسة</h2></div><div class="exercise-card"><h4>✏️ تمرين 1 — تدريب داخل الجلسة<span class="ex-time">15 دقيقة</span></h4><p class="blk-para">أنشئ صفحة HTML تحتوي على:</p><ul class="mini-list"><li>عنوان رئيسي h1 باسم مدينتك المفضلة</li><li>فقرة نصية تصف المدينة باختصار</li><li>صورة للمدينة من الإنترنت مع نص alt مناسب</li><li>قائمة غير مرتبة بثلاثة أماكن مشهورة فيها</li><li>رابط لصفحة ويكيبيديا الخاصة بالمدينة</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 2 — تمرين متوسط<span class="ex-time">20 دقيقة</span></h4><p class="blk-para">أنشئ صفحة "قائمة طعام" تحتوي على:</p><ul class="mini-list"><li>عنوان رئيسي: قائمة مطعم [اسم مطعمك]</li><li>قسم المقبلات: قائمة مرتبة بـ 3 أصناف</li><li>قسم الأطباق الرئيسية: قائمة مرتبة بـ 4 أصناف</li><li>قسم الحلويات: قائمة مرتبة بـ 3 أصناف</li><li>استخدم hr للفصل بين الأقسام</li><li>أضف سعراً لكل صنف باستخدام strong</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 3 — تحدي<span class="ex-time">30 دقيقة</span></h4><p class="blk-para">أنشئ صفحة سيرة ذاتية CV بسيطة تحتوي على:</p><ul class="mini-list"><li>اسمك كعنوان h1</li><li>مسمى وظيفي كعنوان h2</li><li>ملخص شخصي كفقرة</li><li>قسم المهارات: قائمة غير مرتبة</li><li>قسم التعليم: قائمة مرتبة من الأحدث للأقدم</li><li>قسم التواصل: روابط LinkedIn و GitHub والبريد الإلكتروني والهاتف</li><li>صورة شخصية (يمكن استخدام placeholder)</li></ul></div></div><div class="part"><div class="part-head"><span class="p-icon">📚</span><h2>ملخص الجلسة الأولى</h2></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الموضوع</th><th>ما تعلمناه</th></tr></thead><tbody><tr><td>الويب</td><td>كيف يعمل الإنترنت — طلب واستجابة — دور HTML/CSS/JS</td></tr><tr><td>VS Code</td><td>التثبيت والإعداد والإضافات الأساسية</td></tr><tr><td>HTML الأساسي</td><td>هيكل الصفحة — DOCTYPE — head — body</td></tr><tr><td>العناوين</td><td>h1 إلى h6 — الأهمية الهرمية</td></tr><tr><td>النصوص</td><td>p — strong — em — mark — del — br — hr</td></tr><tr><td>الروابط</td><td>href — target — mailto — tel</td></tr><tr><td>الصور</td><td>src — alt — width — height</td></tr><tr><td>القوائم</td><td>ul — ol — li — القوائم المتداخلة</td></tr><tr><td>VS Code Tricks</td><td>اختصارات لوحة المفاتيح — Live Server — Emmet</td></tr></tbody></table></div><div class="subsection"><div class="sub-head"><h3>في الجلسة القادمة...</h3></div><div class="callout preview"><span class="callout-title">🔮 الجلسة الثانية: HTML المتقدم</span><p>✦ الجداول (Tables) — بناء جداول البيانات</p><p>✦ النماذج (Forms) — إنشاء نماذج التسجيل والتواصل</p><p>✦ العناصر الدلالية (Semantic HTML) — header, nav, main, footer</p><p>✦ الوسائط (Media) — video وaudio</p><p>✦ مشروع تطبيقي: صفحة تسجيل كاملة</p></div></div></div>
+<div class="part homework"><div class="part-head"><span class="p-icon">🏠</span><h2>الواجب المنزلي</h2></div><div class="callout info"><span class="callout-title">📅 موعد التسليم: قبل بداية الجلسة القادمة</span><p>يُرسَل الملف عبر القناة أو البريد الإلكتروني للمدرب</p></div><div class="subsection"><div class="sub-head"><h3>الواجب: موقع نادي ألعاب / هواية</h3></div><p class="blk-para">أنشئ موقعاً مكوّناً من صفحة HTML واحدة كاملة عن هواية تحبها أو نادٍ رياضي تتابعه، يحتوي على:</p><h4 class="mini-head">◆ المحتوى الإلزامي:</h4><ul class="mini-list"><li>عنوان h1 رئيسي وعناوين h2 للأقسام الفرعية</li><li>على الأقل 3 فقرات نصية</li><li>صورة واحدة على الأقل مع alt مناسب</li><li>قائمة غير مرتبة (ul) بعناصر الهواية أو اللاعبين</li><li>قائمة مرتبة (ol) بخطوات أو إنجازات</li><li>رابطان على الأقل (داخلي وخارجي)</li><li>استخدام فاصل hr لتقسيم الصفحة</li><li>تذييل footer بسيط بحقوق النشر</li></ul><h4 class="mini-head">◆ نقاط الإضافة (اختياري):</h4><ul class="mini-list"><li>قائمة متداخلة (nested list)</li><li>استخدام جميع وسوم التنسيق النصي (strong, em, mark, del)</li><li>رابط mailto وtel</li></ul><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>معيار التقييم</th><th>الدرجة</th></tr></thead><tbody><tr><td>صحة كود HTML وعدم وجود أخطاء</td><td>30 نقطة</td></tr><tr><td>تطبيق جميع العناصر المطلوبة</td><td>40 نقطة</td></tr><tr><td>تنظيم الكود وتعليقاته</td><td>15 نقطة</td></tr><tr><td>الإبداع والتميز في المحتوى</td><td>15 نقطة</td></tr></tbody></table></div></div></div>
+<div class="closing-banner">
+  <h3>🎉 أحسنت! أنت الآن مطوّر HTML رسمياً 🎉</h3>
+  
+  <p class="attribution">Eng. Hasan Hajjar  |  Front-End Master Book  |  Session 01</p>
+</div>
+
+      <div class="complete-bar">
+        <button class="btn btn-primary" data-complete-btn>أكملت هذا الدرس</button>
+        <span style="color:var(--ink-faint); font-size:.85rem;">يُحفَظ تقدّمك محلياً في متصفحك</span>
+      </div>
+
+      <div class="lesson-nav">
+        <a class="nav-arrow prev is-disabled" href="#"><small>السابق</small><span>لا يوجد درس سابق</span></a>
+        <a class="nav-arrow next" href="lesson-02.html"><small>التالي</small><span>الجلسة 02 — HTML المتقدم</span></a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

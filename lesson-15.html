@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجلسة 15 — JavaScript المتقدم | Front-End Master Book</title>
+<meta name="description" content="JavaScript المتقدم — Modules • Map &amp; Set • Iterators • Generators • Symbol • WeakMap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson-id="15">
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span>Front-End Master
+        <small>مسار JavaScript · م. حسن حجار</small>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#lessons">الجلسات</a>
+      <a href="index.html#about">عن المدرب</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" aria-label="تبديل الوضع الليلي">
+        <span class="moon">🌙</span><span class="sun">☀️</span>
+      </button>
+      <button class="icon-btn sidebar-toggle-btn" aria-label="فهرس الجلسات">📑</button>
+      <button class="icon-btn nav-toggle" aria-label="القائمة">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">الرئيسية</a>
+  <a href="index.html#lessons">الجلسات</a>
+  <a href="index.html#about">عن المدرب</a>
+</div>
+
+<div class="lesson-shell">
+  <aside class="sidebar">
+    <div class="sidebar-title">فهرس الجلسات</div>
+    <div data-sidebar-list></div>
+    <div class="sidebar-progress">
+      <div class="track"><div class="fill"></div></div>
+      <span></span>
+    </div>
+  </aside>
+
+  <main class="lesson-main">
+    <div class="container">
+      <div class="lesson-header">
+  <div class="top-row">
+    <span class="emoji-badge">🔧</span>
+    <div>
+      <div class="session-tag">Session 15 &middot; 3 Hours</div>
+    </div>
+  </div>
+  <h1>الجلسة الخامسة عشرة — JavaScript المتقدم</h1>
+  <p class="tags-line">Modules • Map &amp; Set • Iterators • Generators • Symbol • WeakMap</p>
+  <div class="author-line">👤 المؤلف: <b>Eng. Hasan Hajjar</b> &nbsp;·&nbsp; Software Engineer &amp; AI Engineer</div>
+</div>
+
+<div class="goals-card">
+  <h2>🎯 أهداف الجلسة الخامسة عشرة</h2>
+  <ul class="goal-list"><li>تنظيم الكود في ملفات مستقلة باستخدام ES Modules (import/export)</li><li>التمييز بين Named Exports وDefault Export واستخدام كل منهما</li><li>استخدام Dynamic Import وفهم Code Splitting</li><li>استخدام Map وSet وWeakMap وWeakSet وفهم الفروق بينهم</li><li>فهم Symbol وWell-known Symbols واستخدامهم العملي</li><li>بناء Iterators المخصصة باستخدام Iterator Protocol</li><li>كتابة Generator Functions بـ function* ويield</li><li>تطبيق Generators في الحالات العملية: تسلسلات لانهائية، تحكم في التدفق</li><li>فهم العلاقة بين Iterators وGenerators والـ for...of</li><li>بناء مكتبة JavaScript قابلة لإعادة الاستخدام بـ ES Modules</li></ul>
+</div><div class="callout info"><span class="callout-title">🔁 مراجعة سريعة من الجلسة الرابعة عشرة (OOP)</span><p>✔ class، constructor، this — Instance Methods</p><p>✔ static methods وstatic properties</p><p>✔ Getters/Setters + #private fields</p><p>✔ extends وsuper() — الوراثة</p><p>✔ Method Overriding — Polymorphism</p><p>✔ Prototype Chain — كيف تعمل الوراثة داخلياً</p></div>
+<div class="part"><div class="part-head"><span class="p-icon">📦</span><h2>الجزء الأول: ES Modules — تنظيم الكود في ملفات</h2></div><p class="blk-para">ES Modules هي النظام الرسمي لتقسيم كود JavaScript إلى ملفات مستقلة قابلة لإعادة الاستخدام. كل ملف .js يُعدّ Module منفصلاً بنطاقه الخاص.</p><div class="subsection"><div class="sub-head"><span class="sub-num">1.1</span><h3>Named Exports</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ ملف: utils/math.js ═══
+
+// تصدير عند التعريف
+export const PI = 3.14159265359;
+export const E  = 2.71828182845;
+
+export function add(a, b)      { return a + b; }
+export function subtract(a, b) { return a - b; }
+export function multiply(a, b) { return a * b; }
+export function divide(a, b) {
+  if (b === 0) throw new Error('لا يمكن القسمة على صفر');
+  return a / b;
+}
+
+export function clamp(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+export class Vector2D {
+  constructor(x, y) { this.x = x; this.y = y; }
+  add(other)  { return new Vector2D(this.x+other.x, this.y+other.y); }
+  magnitude() { return Math.sqrt(this.x**2 + this.y**2); }
+  toString()  { return `Vector(${this.x}, ${this.y})`; }
+}
+
+// تصدير في نهاية الملف (بديل)
+// export { PI, E, add, subtract, multiply, divide };</code></pre>
+  <div class="output-box" id="out-1"></div>
+</div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ ملف: main.js — استيراد Named Exports ═══
+
+// استيراد محدد
+import { add, multiply, PI } from './utils/math.js';
+
+// استيراد مع إعادة تسمية
+import { subtract as minus, divide as div } from './utils/math.js';
+
+// استيراد الكل كـ namespace
+import * as Math from './utils/math.js';
+
+console.log(add(5, 3));      // 8
+console.log(Math.PI);        // 3.14159...
+console.log(Math.clamp(150, 0, 100)); // 100
+
+const v = new Math.Vector2D(3, 4);
+console.log(v.magnitude());  // 5</code></pre>
+  <div class="output-box" id="out-2"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.2</span><h3>Default Export</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ ملف: utils/api.js ═══
+
+// Default Export — كل ملف يملك export default واحداً فقط
+export default class ApiClient {
+  #baseURL;
+  #token;
+  #timeout;
+
+  constructor(baseURL, token = null, timeout = 5000) {
+    this.#baseURL  = baseURL.replace(/\/$/, '');
+    this.#token    = token;
+    this.#timeout  = timeout;
+  }
+
+  #buildHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    if (this.#token) headers['Authorization'] = `Bearer ${this.#token}`;
+    return headers;
+  }
+
+  async get(endpoint) {
+    const res = await fetch(`${this.#baseURL}${endpoint}`, {
+      headers: this.#buildHeaders(),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  }
+
+  async post(endpoint, data) {
+    const res = await fetch(`${this.#baseURL}${endpoint}`, {
+      method: 'POST',
+      headers: this.#buildHeaders(),
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  }
+}
+
+// ─── Named + Default في نفس الملف ───
+export const BASE_URL = 'https://api.example.com';
+export { ApiClient as default };
+
+// ═══ ملف: main.js — استيراد Default ═══
+import ApiClient from './utils/api.js';               // Default
+import ApiClient, { BASE_URL } from './utils/api.js'; // Default + Named
+
+const api = new ApiClient('https://jsonplaceholder.typicode.com');
+const users = await api.get('/users');</code></pre>
+  <div class="output-box" id="out-3"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.3</span><h3>Re-exports وهيكل المشروع الاحترافي</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ═══ هيكل مشروع نموذجي ═══
+// src/
+// ├── index.js           ← Entry point
+// ├── utils/
+// │   ├── index.js       ← Barrel file (re-exports)
+// │   ├── math.js
+// │   ├── string.js
+// │   └── date.js
+// ├── services/
+// │   ├── api.js
+// │   └── storage.js
+// └── components/
+//     ├── Button.js
+//     └── Modal.js
+
+// ═══ ملف: utils/index.js (Barrel) ═══
+// يُجمّع التصديرات ليُسهّل الاستيراد
+export { add, subtract, multiply, divide, PI } from './math.js';
+export { capitalize, truncate, slugify }       from './string.js';
+export { formatDate, parseDate, daysBetween }  from './date.js';
+
+// ═══ بدل كتابة 3 import منفصلة ═══
+// import { add } from './utils/math.js';
+// import { capitalize } from './utils/string.js';
+
+// ═══ استيراد واحد فقط ✅ ═══
+import { add, capitalize, formatDate } from './utils/index.js';
+// أو:
+import { add, capitalize, formatDate } from './utils'; // Node.js</code></pre>
+  <div class="output-box" id="out-4"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">1.4</span><h3>Dynamic Import والـ Code Splitting</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// Dynamic Import — يُحمَّل عند الحاجة فقط (لا عند بدء التطبيق)
+// يُعيد Promise
+
+// تحميل عند النقر
+document.querySelector('#chart-btn').addEventListener('click', async () =&gt; {
+  const { Chart } = await import('./utils/chart.js');
+  const chart = new Chart('#canvas');
+  chart.render(data);
+});
+
+// تحميل مشروط
+async function loadAdminPanel() {
+  const { default: AdminPanel } = await import('./admin/panel.js');
+  return new AdminPanel();
+}
+
+// Code Splitting مع Lazy Loading
+const routes = {
+  '/':       () =&gt; import('./pages/Home.js'),
+  '/about':  () =&gt; import('./pages/About.js'),
+  '/contact':() =&gt; import('./pages/Contact.js'),
+};
+
+async function navigate(path) {
+  const loader = routes[path] ?? routes['/'];
+  const { default: Page } = await loader();
+  document.getElementById('app').innerHTML = new Page().render();
+}
+
+// ملاحظات مهمة:
+// 1. في HTML: &lt;script type='module' src='main.js'&gt;
+// 2. Modules تعمل في strict mode تلقائياً
+// 3. this في Modules = undefined (ليس window)
+// 4. Modules لها نطاقها الخاص — لا تُلوّث النطاق العام</code></pre>
+  <div class="output-box" id="out-5"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🗺️</span><h2>الجزء الثاني: Map وSet — هياكل البيانات المتقدمة</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.1</span><h3>Map — قاموس بمفاتيح من أي نوع</h3></div><p class="blk-para">Map هو هيكل بيانات key-value مثل Object، لكن المفاتيح يمكن أن تكون من أي نوع (وليس نصاً فقط):</p><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ══ إنشاء Map ══
+const map = new Map();
+
+// ══ set(key, value) — إضافة/تحديث ══
+map.set('name', 'أحمد محمد');
+map.set(1, 'رقم واحد');              // مفتاح رقمي
+map.set(true, 'قيمة منطقية');         // مفتاح boolean
+const obj = { id: 1 };
+map.set(obj, 'مفتاح كائن');           // مفتاح object!
+
+// ══ get(key) — استرجاع ══
+console.log(map.get('name')); // 'أحمد محمد'
+console.log(map.get(1));      // 'رقم واحد'
+console.log(map.get(obj));    // 'مفتاح كائن'
+
+// ══ has(key) — التحقق ══
+console.log(map.has('name')); // true
+console.log(map.has('age'));  // false
+
+// ══ delete(key) وclear() ══
+map.delete('name');
+map.clear(); // مسح الكل
+
+// ══ size ══
+console.log(map.size); // عدد العناصر
+
+// ══ إنشاء من مصفوفة ══
+const userMap = new Map([
+  ['id',    1],
+  ['name',  'أحمد'],
+  ['email', 'ahmed@ex.com'],
+  ['admin', true],
+]);
+
+// ══ التكرار ══
+for (const [key, value] of userMap) {
+  console.log(`${key}: ${value}`);
+}
+
+// مصفوفة من المفاتيح/القيم/الأزواج
+console.log([...userMap.keys()]);    // ['id','name','email','admin']
+console.log([...userMap.values()]);  // [1,'أحمد','ahmed@ex.com',true]
+console.log([...userMap.entries()]); // [[key,val],...]
+
+// forEach
+userMap.forEach((value, key) =&gt; {
+  console.log(`${key} → ${value}`);
+});</code></pre>
+  <div class="output-box" id="out-6"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.2</span><h3>Map مقابل Object — متى تستخدم أيهما؟</h3></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الميزة</th><th>Map</th><th>Object</th></tr></thead><tbody><tr><td>نوع المفاتيح</td><td>أي نوع ✅</td><td>String أو Symbol فقط</td></tr><tr><td>الترتيب</td><td>محفوظ بترتيب الإضافة ✅</td><td>جزئياً فقط</td></tr><tr><td>الحجم</td><td>map.size ✅</td><td>Object.keys(o).length</td></tr><tr><td>الأداء (قراءة/كتابة متكثفة)</td><td>أسرع ✅</td><td>أبطأ</td></tr><tr><td>التكرار</td><td>Iterable مباشرة ✅</td><td>يحتاج Object.entries()</td></tr><tr><td>Prototype</td><td>لا وراثة ✅</td><td>يرث من Object.prototype</td></tr><tr><td>متى تستخدم؟</td><td>مفاتيح ديناميكية/بيانات كثيرة</td><td>بيانات ثابتة/بسيطة</td></tr></tbody></table></div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.3</span><h3>Set — مجموعة القيم الفريدة</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// Set — مثل المصفوفة لكن بلا تكرار
+
+// ══ إنشاء ══
+const set = new Set();
+set.add(1);
+set.add(2);
+set.add(2); // يُتجاهَل — موجود!
+set.add('مرحبا');
+set.add(true);
+
+console.log(set.size); // 4 (وليس 5)
+
+// ══ من مصفوفة — أسرع طريقة لإزالة التكرار ══
+const arr = [1, 2, 2, 3, 3, 3, 4, 4, 5];
+const unique = [...new Set(arr)];
+console.log(unique); // [1, 2, 3, 4, 5]
+
+// إزالة التكرار من مصفوفة نصوص
+const cities = ['الرياض', 'جدة', 'الرياض', 'مكة', 'جدة'];
+const uniqueCities = [...new Set(cities)];
+// ['الرياض', 'جدة', 'مكة']
+
+// ══ العمليات ══
+const setA = new Set([1, 2, 3, 4, 5]);
+const setB = new Set([3, 4, 5, 6, 7]);
+
+// الاتحاد (Union)
+const union = new Set([...setA, ...setB]);
+// {1, 2, 3, 4, 5, 6, 7}
+
+// التقاطع (Intersection)
+const intersection = new Set([...setA].filter(x =&gt; setB.has(x)));
+// {3, 4, 5}
+
+// الفرق (Difference) A - B
+const difference = new Set([...setA].filter(x =&gt; !setB.has(x)));
+// {1, 2}
+
+// ══ التكرار ══
+for (const val of setA) {
+  console.log(val);
+}
+
+// التحقق O(1) — أسرع من includes() في Array
+console.log(setA.has(3)); // true
+console.log(setA.has(9)); // false
+
+// ══ تطبيق عملي: تتبع الصفحات المزورة ══
+const visitedPages = new Set();
+function trackPageView(url) {
+  visitedPages.add(url);
+  console.log(`صفحات فريدة: ${visitedPages.size}`);
+}
+trackPageView('/home');
+trackPageView('/about');
+trackPageView('/home'); // لا يُضاف</code></pre>
+  <div class="output-box" id="out-7"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">2.4</span><h3>WeakMap وWeakSet</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// WeakMap — Map بمفاتيح كائنات فقط
+// المفاتيح تُحذَف تلقائياً إذا لم تعد مُشار إليها (Garbage Collection)
+
+const weakMap = new WeakMap();
+
+let user = { name: 'أحمد' };
+weakMap.set(user, { role: 'admin', lastLogin: new Date() });
+console.log(weakMap.get(user).role); // 'admin'
+
+user = null; // الكائن يُحذَف من الذاكرة → WeakMap يُنظَّف تلقائياً
+
+// ══ استخدام شائع: تخزين بيانات خاصة للكائنات ══
+const _private = new WeakMap();
+
+class Person {
+  constructor(name, secret) {
+    _private.set(this, { secret, internalId: Date.now() });
+    this.name = name;
+  }
+
+  getSecret() { return _private.get(this).secret; }
+  getId()     { return _private.get(this).internalId; }
+}
+
+const p = new Person('أحمد', 'password123');
+console.log(p.name);       // 'أحمد' (public)
+console.log(p.getSecret()); // 'password123' (عبر WeakMap)
+// لا يمكن الوصول للـ secret من الخارج مباشرة
+
+// ══ WeakSet — Set بعناصر كائنات فقط ══
+const weakSet = new WeakSet();
+
+// تتبع الكائنات المُعالَجة
+const processed = new WeakSet();
+
+function processItem(item) {
+  if (processed.has(item)) {
+    console.log('تم معالجة هذا العنصر مسبقاً');
+    return;
+  }
+  // معالجة...
+  processed.add(item);
+  console.log('تمت المعالجة');
+}
+
+// WeakMap/WeakSet لا تملك:
+// size، forEach، keys، values، entries، clear
+// لأنها تعتمد على Garbage Collector</code></pre>
+  <div class="output-box" id="out-8"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🔮</span><h2>الجزء الثالث: Symbol — المعرّف الفريد</h2></div><p class="blk-para">Symbol هو نوع بيانات بدائي يُنشئ قيمة فريدة لا تتكرر أبداً — مفيد للمفاتيح الخاصة والـ Well-known Symbols.</p><div class="subsection"><div class="sub-head"><span class="sub-num">3.1</span><h3>الأساسيات</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// كل Symbol فريد حتى لو نفس الوصف
+const s1 = Symbol('id');
+const s2 = Symbol('id');
+console.log(s1 === s2);     // false! دائماً
+console.log(typeof s1);     // 'symbol'
+console.log(s1.toString()); // 'Symbol(id)'
+console.log(s1.description); // 'id'
+
+// Symbol كمفتاح Object — لا يظهر في for...in
+const ID = Symbol('userId');
+const user = {
+  name: 'أحمد',
+  [ID]: 12345,  // مفتاح Symbol
+};
+
+console.log(user[ID]);       // 12345
+console.log(user.name);      // 'أحمد'
+
+for (const key in user) {
+  console.log(key); // 'name' فقط — ID مخفي!
+}
+console.log(Object.keys(user)); // ['name'] — ID غائب
+
+// للوصول لـ Symbol keys
+console.log(Object.getOwnPropertySymbols(user)); // [Symbol(userId)]
+
+// ══ Symbol.for — Symbol مشترك عالمياً ══
+const ga = Symbol.for('app.key');
+const gb = Symbol.for('app.key');
+console.log(ga === gb); // true! (سجلّ عالمي)
+
+// استخدام عملي: ثوابت فريدة
+const Status = {
+  PENDING:   Symbol('pending'),
+  ACTIVE:    Symbol('active'),
+  SUSPENDED: Symbol('suspended'),
+  DELETED:   Symbol('deleted'),
+};
+
+let userStatus = Status.PENDING;
+if (userStatus === Status.PENDING) {
+  console.log('المستخدم في انتظار التفعيل');
+}</code></pre>
+  <div class="output-box" id="out-9"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">3.2</span><h3>Well-known Symbols</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// Well-known Symbols تُتيح تخصيص سلوك JS المُدمَج
+
+// ══ Symbol.iterator — جعل الكائن Iterable ══
+class NumberRange {
+  constructor(start, end, step = 1) {
+    this.start = start;
+    this.end   = end;
+    this.step  = step;
+  }
+
+  [Symbol.iterator]() {
+    let current = this.start;
+    const { end, step } = this;
+    return {
+      next() {
+        if (current &lt;= end) {
+          const value = current;
+          current += step;
+          return { value, done: false };
+        }
+        return { value: undefined, done: true };
+      }
+    };
+  }
+}
+
+const range = new NumberRange(1, 10, 2);
+for (const n of range) {
+  console.log(n); // 1, 3, 5, 7, 9
+}
+console.log([...range]); // [1, 3, 5, 7, 9]
+
+// ══ Symbol.toPrimitive — تحويل للقيم البدائية ══
+class Money {
+  constructor(amount, currency = 'SAR') {
+    this.amount   = amount;
+    this.currency = currency;
+  }
+
+  [Symbol.toPrimitive](hint) {
+    if (hint === 'number') return this.amount;
+    if (hint === 'string') return `${this.amount} ${this.currency}`;
+    return this.amount; // default
+  }
+}
+
+const price = new Money(99.5, 'SAR');
+console.log(`السعر: ${price}`);  // 'السعر: 99.5 SAR'
+console.log(price + 50);          // 149.5
+console.log(price &gt; 100);          // false
+
+// ══ Symbol.hasInstance ══
+class EvenNumber {
+  static [Symbol.hasInstance](num) {
+    return typeof num === 'number' &amp;&amp; num % 2 === 0;
+  }
+}
+console.log(4 instanceof EvenNumber);  // true
+console.log(7 instanceof EvenNumber);  // false</code></pre>
+  <div class="output-box" id="out-10"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🔄</span><h2>الجزء الرابع: Iterators والـ Iterable Protocol</h2></div><p class="blk-para">Iterator Protocol يُتيح تعريف كيفية التكرار على أي كائن بـ for...of أو spread أو destructuring.</p><div class="subsection"><div class="sub-head"><span class="sub-num">4.1</span><h3>Iterator Protocol</h3></div><div class="callout info"><span class="callout-title">🔄 كيف يعمل for...of</span><p>  for (const x of iterable) { ... }</p><p>  1. يستدعي iterable[Symbol.iterator]() → يُعيد iterator</p><p>  2. في كل دورة: يستدعي iterator.next()</p><p>  3. next() يُعيد: { value: X, done: false }</p><p>  4. عند الانتهاء: { value: undefined, done: true }</p><p>  Iterables المُدمَجة:</p><p>  String, Array, Map, Set, NodeList, arguments</p><p>  TypedArray, Generator, URL.searchParams</p></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// ══ Iterator بسيط يدوياً ══
+function createCounter(start = 0, end = Infinity) {
+  let current = start;
+  return {
+    // Iterator Protocol: يجب أن يملك next()
+    next() {
+      if (current &lt;= end) {
+        return { value: current++, done: false };
+      }
+      return { value: undefined, done: true };
+    },
+    // Iterable Protocol: يُعيد نفسه
+    [Symbol.iterator]() { return this; }
+  };
+}
+
+const counter = createCounter(1, 5);
+console.log(counter.next()); // { value:1, done:false }
+console.log(counter.next()); // { value:2, done:false }
+console.log([...counter]);   // [3, 4, 5] (استُكمل من حيث توقف)
+
+// ══ Iterable على كلاس LinkedList ══
+class Node {
+  constructor(val) { this.val = val; this.next = null; }
+}
+
+class LinkedList {
+  constructor(...values) {
+    this.head = null;
+    values.forEach(v =&gt; this.push(v));
+  }
+
+  push(val) {
+    const node = new Node(val);
+    if (!this.head) { this.head = node; return; }
+    let curr = this.head;
+    while (curr.next) curr = curr.next;
+    curr.next = node;
+  }
+
+  [Symbol.iterator]() {
+    let current = this.head;
+    return {
+      next() {
+        if (current) {
+          const val = current.val;
+          current = current.next;
+          return { value: val, done: false };
+        }
+        return { done: true };
+      }
+    };
+  }
+}
+
+const list = new LinkedList(1, 2, 3, 4, 5);
+for (const val of list) console.log(val); // 1,2,3,4,5
+console.log([...list]); // [1,2,3,4,5]
+const [first, second] = list; // Destructuring ✅</code></pre>
+  <div class="output-box" id="out-11"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">⚡</span><h2>الجزء الخامس: Generator Functions</h2></div><p class="blk-para">Generators هي دوال خاصة يمكن إيقافها واستئنافها — تُنشئ Iterators بشكل تلقائي وأنيق.</p><div class="subsection"><div class="sub-head"><span class="sub-num">5.1</span><h3>الأساسيات: function* ويield</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// function* تُعرّف Generator
+function* simpleGenerator() {
+  console.log('قبل أول yield');
+  yield 1;
+  console.log('بعد أول yield');
+  yield 2;
+  console.log('بعد ثاني yield');
+  yield 3;
+  console.log('انتهى');
+}
+
+const gen = simpleGenerator(); // لا ينفّذ شيئاً!
+console.log(gen.next()); // 'قبل أول yield' | { value:1, done:false }
+console.log(gen.next()); // 'بعد أول yield' | { value:2, done:false }
+console.log(gen.next()); // 'بعد ثاني yield' | { value:3, done:false }
+console.log(gen.next()); // 'انتهى'          | { value:undefined, done:true }
+
+// ══ Generator هو Iterable مباشرةً ══
+for (const val of simpleGenerator()) {
+  console.log(val); // 1, 2, 3
+}
+
+console.log([...simpleGenerator()]); // [1, 2, 3]
+
+// ══ Generator with infinite sequence ══
+function* infiniteCounter(start = 0, step = 1) {
+  let current = start;
+  while (true) { // حلقة لانهائية — لكن آمنة!
+    yield current;
+    current += step;
+  }
+}
+
+const counter = infiniteCounter(0, 2);
+console.log(counter.next().value); // 0
+console.log(counter.next().value); // 2
+console.log(counter.next().value); // 4
+
+// أخذ أول N قيم
+function take(gen, n) {
+  const results = [];
+  for (const val of gen) {
+    results.push(val);
+    if (results.length &gt;= n) break;
+  }
+  return results;
+}
+
+console.log(take(infiniteCounter(1), 10)); // [1,2,3,4,5,6,7,8,9,10]</code></pre>
+  <div class="output-box" id="out-12"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.2</span><h3>yield* وتركيب Generators</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// yield* يُفوّض لـ Generator أو Iterable آخر
+
+function* numbers()   { yield 1; yield 2; yield 3; }
+function* letters()   { yield 'a'; yield 'b'; yield 'c'; }
+function* combined()  {
+  yield* numbers();   // يُنتج 1, 2, 3
+  yield 'separator';
+  yield* letters();   // يُنتج 'a', 'b', 'c'
+  yield* [10, 20];    // يعمل مع أي Iterable
+}
+
+console.log([...combined()]); // [1,2,3,'separator','a','b','c',10,20]
+
+// ══ Tree Traversal بـ Generator ══
+function* traverseTree(node) {
+  if (!node) return;
+  yield node.value;              // pre-order
+  yield* traverseTree(node.left);
+  yield* traverseTree(node.right);
+}
+
+const tree = {
+  value: 1,
+  left:  { value:2, left:{value:4,left:null,right:null}, right:{value:5,left:null,right:null} },
+  right: { value:3, left:null, right:{value:6,left:null,right:null} },
+};
+
+console.log([...traverseTree(tree)]); // [1,2,4,5,3,6]
+
+// ══ Fibonacci Generator ══
+function* fibonacci() {
+  let [a, b] = [0, 1];
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+
+const fib = fibonacci();
+const first10 = take(fib, 10);
+console.log(first10); // [0,1,1,2,3,5,8,13,21,34]</code></pre>
+  <div class="output-box" id="out-13"></div>
+</div></div><div class="subsection"><div class="sub-head"><span class="sub-num">5.3</span><h3>إرسال قيم للـ Generator بـ next(value)</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// next(value) يُرسِل قيمة للـ Generator
+// القيمة تُصبح نتيجة تعبير yield الحالي
+
+function* calculator() {
+  const a = yield 'أدخل الرقم الأول:';
+  const b = yield 'أدخل الرقم الثاني:';
+  const op = yield 'أدخل العملية (+/-/*//):';
+
+  switch (op) {
+    case '+': return a + b;
+    case '-': return a - b;
+    case '*': return a * b;
+    case '/': return b !== 0 ? a / b : 'خطأ: قسمة على صفر';
+    default:  return 'عملية غير معروفة';
+  }
+}
+
+const calc = calculator();
+console.log(calc.next().value);    // 'أدخل الرقم الأول:'
+console.log(calc.next(10).value);  // 'أدخل الرقم الثاني:'
+console.log(calc.next(5).value);   // 'أدخل العملية:'
+console.log(calc.next('+').value); // 15
+
+// ══ return() وthrow() ══
+function* longTask() {
+  try {
+    yield 'الخطوة 1';
+    yield 'الخطوة 2';
+    yield 'الخطوة 3';
+  } catch (err) {
+    yield `خطأ: ${err.message}`;
+  } finally {
+    yield 'تنظيف الموارد';
+  }
+}
+
+const task = longTask();
+console.log(task.next().value);              // 'الخطوة 1'
+console.log(task.throw(new Error('انقطع!'))).value); // 'خطأ: انقطع!'
+console.log(task.next().value);              // 'تنظيف الموارد'</code></pre>
+  <div class="output-box" id="out-14"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">🎯</span><h2>الجزء السادس: أنماط عملية مع Generators</h2></div><div class="subsection"><div class="sub-head"><span class="sub-num">6.1</span><h3>Async Generator للصفحات (Pagination)</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// async Generator — يجمع async/await مع Generator
+async function* fetchPagedUsers(pageSize = 10) {
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    const res = await fetch(
+      `https://api.example.com/users?page=${page}&amp;limit=${pageSize}`
+    );
+    const data = await res.json();
+
+    if (data.users.length === 0) {
+      hasMore = false;
+    } else {
+      yield data.users; // يُنتج صفحة من المستخدمين
+      page++;
+    }
+  }
+}
+
+// استهلاك الـ Async Generator
+async function loadAllUsers() {
+  const allUsers = [];
+  for await (const page of fetchPagedUsers(20)) {
+    allUsers.push(...page);
+    console.log(`تحميل: ${allUsers.length} مستخدم`);
+  }
+  return allUsers;
+}
+
+// ══ Generator كـ Pipeline (أنابيب معالجة) ══
+function* filter(iterable, predicate) {
+  for (const item of iterable) {
+    if (predicate(item)) yield item;
+  }
+}
+
+function* map(iterable, transform) {
+  for (const item of iterable) {
+    yield transform(item);
+  }
+}
+
+function* take(iterable, n) {
+  let count = 0;
+  for (const item of iterable) {
+    if (count++ &gt;= n) return;
+    yield item;
+  }
+}
+
+// تركيب Pipeline
+const numbers = infiniteCounter(1); // 1, 2, 3, 4, ...
+const pipeline = take(
+  map(
+    filter(numbers, n =&gt; n % 2 === 0), // الأعداد الزوجية
+    n =&gt; n * n                          // مربّعاتها
+  ),
+  5                                    // أول 5 فقط
+);
+console.log([...pipeline]); // [4, 16, 36, 64, 100]</code></pre>
+  <div class="output-box" id="out-15"></div>
+</div></div></div><div class="part"><div class="part-head"><span class="p-icon">💻</span><h2>الجزء السابع: المشروع — مكتبة JavaScript قابلة لإعادة الاستخدام</h2></div><div class="project-box"><p class="blk-para">سنبني مكتبة utility بـ ES Modules تستخدم Map وSet وGenerators وIterators.</p><div class="subsection"><div class="sub-head"><h3>هيكل المشروع</h3></div><div class="code-block" data-lang="shell">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot other"></span>Shell</span>
+    <div class="code-actions">
+      
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>js-toolkit/
+├── src/
+│   ├── index.js              ← Barrel — يُصدّر الكل
+│   ├── collections/
+│   │   ├── BiMap.js          ← مخصص: خريطة ثنائية الاتجاه
+│   │   ├── LRUCache.js       ← مخصص: كاش LRU بـ Map
+│   │   └── EventEmitter.js   ← نظام أحداث
+│   ├── generators/
+│   │   ├── sequences.js      ← تسلسلات: range, fibonacci, primes
+│   │   └── pipeline.js       ← pipeline: filter, map, take, chunk
+│   └── utils/
+│       ├── debounce.js
+│       └── memoize.js
+└── demo/
+    └── index.html</code></pre>
+  <div class="output-box" id="out-16"></div>
+</div></div><div class="subsection"><div class="sub-head"><h3>src/collections/LRUCache.js</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>/**
+ * LRU Cache — يحتفظ بأحدث N عنصر
+ * يستخدم Map الذي يحفظ ترتيب الإضافة
+ */
+export class LRUCache {
+  #capacity;
+  #cache;    // Map — الأقدم أول، الأحدث آخر
+  #hits   = 0;
+  #misses = 0;
+
+  constructor(capacity = 10) {
+    if (capacity &lt; 1) throw new RangeError('السعة يجب أن تكون &gt;= 1');
+    this.#capacity = capacity;
+    this.#cache    = new Map();
+  }
+
+  get(key) {
+    if (!this.#cache.has(key)) {
+      this.#misses++;
+      return undefined;
+    }
+    this.#hits++;
+    // نقل للنهاية (الأحدث استخداماً)
+    const val = this.#cache.get(key);
+    this.#cache.delete(key);
+    this.#cache.set(key, val);
+    return val;
+  }
+
+  set(key, value) {
+    if (this.#cache.has(key)) {
+      this.#cache.delete(key); // حذف ثم إعادة إضافة للنهاية
+    } else if (this.#cache.size &gt;= this.#capacity) {
+      // حذف الأقدم — أول عنصر في Map
+      const oldestKey = this.#cache.keys().next().value;
+      this.#cache.delete(oldestKey);
+    }
+    this.#cache.set(key, value);
+    return this;
+  }
+
+  has(key)    { return this.#cache.has(key); }
+  delete(key) { return this.#cache.delete(key); }
+  clear()     { this.#cache.clear(); this.#hits = 0; this.#misses = 0; }
+
+  get size()     { return this.#cache.size; }
+  get capacity() { return this.#capacity; }
+  get hitRate()  {
+    const total = this.#hits + this.#misses;
+    return total === 0 ? 0 : ((this.#hits / total) * 100).toFixed(1) + '%';
+  }
+
+  getStats() {
+    return { hits:this.#hits, misses:this.#misses, hitRate:this.hitRate, size:this.size };
+  }
+
+  // Iterable
+  [Symbol.iterator]() { return this.#cache[Symbol.iterator](); }
+
+  toString() {
+    return `LRUCache(${this.size}/${this.#capacity}) hit=${this.hitRate}`;
+  }
+}
+
+// استخدام
+const cache = new LRUCache(3);
+cache.set('a', 1).set('b', 2).set('c', 3);
+cache.get('a'); // نقل a للنهاية
+cache.set('d', 4); // يحذف b (الأقدم)
+console.log(cache.has('b')); // false
+console.log([...cache]);     // [['c',3],['a',1],['d',4]]
+console.log(cache.getStats()); // {hits:1,misses:0,...}</code></pre>
+  <div class="output-box" id="out-17"></div>
+</div></div><div class="subsection"><div class="sub-head"><h3>src/collections/EventEmitter.js</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>/**
+ * EventEmitter — نظام أحداث مخصص
+ * يستخدم Map&lt;string, Set&lt;Function&gt;)
+ */
+export class EventEmitter {
+  #listeners = new Map();
+  #maxListeners = 10;
+
+  on(event, listener) {
+    if (!this.#listeners.has(event)) {
+      this.#listeners.set(event, new Set());
+    }
+    const listeners = this.#listeners.get(event);
+    if (listeners.size &gt;= this.#maxListeners) {
+      console.warn(`تحذير: ${listeners.size} listener على حدث '${event}'`);
+    }
+    listeners.add(listener);
+    return this; // Chaining
+  }
+
+  off(event, listener) {
+    this.#listeners.get(event)?.delete(listener);
+    return this;
+  }
+
+  once(event, listener) {
+    const wrapper = (...args) =&gt; {
+      listener(...args);
+      this.off(event, wrapper);
+    };
+    return this.on(event, wrapper);
+  }
+
+  emit(event, ...args) {
+    const listeners = this.#listeners.get(event);
+    if (!listeners) return false;
+    listeners.forEach(fn =&gt; {
+      try { fn(...args); }
+      catch (err) { console.error(`خطأ في listener '${event}':`, err.message); }
+    });
+    return listeners.size &gt; 0;
+  }
+
+  removeAllListeners(event) {
+    if (event) this.#listeners.delete(event);
+    else       this.#listeners.clear();
+    return this;
+  }
+
+  listenerCount(event) { return this.#listeners.get(event)?.size ?? 0; }
+  eventNames()         { return [...this.#listeners.keys()]; }
+}
+
+// ══ مثال: نظام أحداث تطبيق ══
+const app = new EventEmitter();
+
+// استماع للأحداث
+app.on('user:login', (user) =&gt; {
+  console.log(`تسجيل دخول: ${user.name}`);
+});
+
+app.on('user:login', (user) =&gt; {
+  localStorage.setItem('lastUser', JSON.stringify(user));
+});
+
+app.once('app:ready', () =&gt; {
+  console.log('التطبيق جاهز — يُستدعى مرة واحدة فقط');
+});
+
+// إطلاق الأحداث
+app.emit('app:ready');
+app.emit('user:login', { name:'أحمد', id:1 });
+app.emit('app:ready'); // لا يُستدعى once مرة ثانية</code></pre>
+  <div class="output-box" id="out-18"></div>
+</div></div><div class="subsection"><div class="sub-head"><h3>src/generators/sequences.js</h3></div><div class="code-block" data-lang="javascript">
+  <div class="code-head">
+    <span class="code-lang"><span class="cdot js"></span>JavaScript</span>
+    <div class="code-actions">
+      <button class="code-btn run-btn">▶ جرّب الكود</button>
+      <button class="code-btn copy-btn">📋 نسخ</button>
+    </div>
+  </div>
+  <pre><code>// مجموعة تسلسلات مفيدة
+
+export function* range(start, end, step = 1) {
+  if (step === 0) throw new Error('step لا يمكن أن يكون صفراً');
+  for (let i = start; step &gt; 0 ? i &lt; end : i &gt; end; i += step) {
+    yield i;
+  }
+}
+
+export function* fibonacci() {
+  let [a, b] = [0, 1];
+  while (true) { yield a; [a, b] = [b, a + b]; }
+}
+
+export function* primes() {
+  const sieve = new Set();
+  let n = 2;
+  while (true) {
+    if (!sieve.has(n)) {
+      yield n;
+      for (let i = n * n; i &lt; n * n + 1000; i += n) sieve.add(i);
+    }
+    n++;
+  }
+}
+
+export function* repeat(value, times = Infinity) {
+  for (let i = 0; i &lt; times; i++) yield value;
+}
+
+export function* cycle(iterable) {
+  while (true) yield* iterable;
+}
+
+export function* zip(...iterables) {
+  const iterators = iterables.map(it =&gt; it[Symbol.iterator]());
+  while (true) {
+    const results = iterators.map(it =&gt; it.next());
+    if (results.some(r =&gt; r.done)) return;
+    yield results.map(r =&gt; r.value);
+  }
+}
+
+// ══ استخدام ══
+// import { range, fibonacci, primes, zip } from './generators/sequences.js';
+
+console.log([...range(0, 10, 2)]);          // [0,2,4,6,8]
+console.log(take(fibonacci(), 8));            // [0,1,1,2,3,5,8,13]
+console.log(take(primes(), 10));              // [2,3,5,7,11,13,17,19,23,29]
+
+const nums  = [1, 2, 3];
+const chars = ['a', 'b', 'c'];
+console.log([...zip(nums, chars)]);           // [[1,'a'],[2,'b'],[3,'c']]</code></pre>
+  <div class="output-box" id="out-19"></div>
+</div></div></div></div><div class="part"><div class="part-head"><span class="p-icon">✏️</span><h2>الجزء الثامن: تمارين الجلسة الخامسة عشرة</h2></div><div class="exercise-card"><h4>✏️ تمرين 1 — Map وSet<span class="ex-time">15 دقيقة</span></h4><p class="blk-para">على مصفوفة من كائنات الطلاب:</p><ul class="mini-list"><li>حوّل المصفوفة لـ Map بالـ id كمفتاح واستعدّ للبحث O(1)</li><li>أنشئ Set من أسماء المواد الدراسية لإزالة التكرار</li><li>أنشئ Map لتجميع الطلاب حسب التقدير (A/B/C/D/F)</li><li>استخدم Set لإيجاد الطلاب الذين اجتازوا جميع المواد</li><li>اكتب دالة findDuplicateEmails(students) باستخدام Set وMap</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 2 — Symbol وIterator<span class="ex-time">20 دقيقة</span></h4><p class="blk-para">أنشئ هياكل بيانات مخصصة:</p><ul class="mini-list"><li>class Stack: push, pop, peek — أضف [Symbol.iterator] يُكرّر من القمة للقاع</li><li>class Queue: enqueue, dequeue — أضف [Symbol.iterator] يُكرّر بالترتيب</li><li>class Matrix: مصفوفة ثنائية الأبعاد — أضف [Symbol.iterator] يُكرّر خلية خلية</li><li>أضف [Symbol.toPrimitive] لـ Stack لتُعيد عدد العناصر عند التحويل الرقمي</li></ul></div><div class="exercise-card"><h4>✏️ تمرين 3 — Generators<span class="ex-time">25 دقيقة</span></h4><p class="blk-para">أنشئ Generators متقدمة:</p><ul class="mini-list"><li>function* permutations(arr): يُولّد جميع تبديلات مصفوفة</li><li>function* combinations(arr, r): جميع التوليفات بطول r</li><li>function* runLengthEncode(arr): ترميز run-length للمصفوفة</li><li>function* flatten(arr): يُسوّي أي عمق من التداخل</li><li>pipeline كامل: numbers → filter(isPrime) → map(n=&gt;n*2) → take(5)</li></ul></div></div><div class="part"><div class="part-head"><span class="p-icon">📚</span><h2>ملخص الجلسة الخامسة عشرة</h2></div><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>الموضوع</th><th>أبرز ما تعلمناه</th></tr></thead><tbody><tr><td>ES Modules</td><td>export/import | Named وDefault | Re-exports | Barrel files</td></tr><tr><td>Dynamic Import</td><td>import() يُعيد Promise — Code Splitting وLazy Loading</td></tr><tr><td>Module Rules</td><td>strict mode تلقائي | نطاق خاص | type='module' في HTML</td></tr><tr><td>Map</td><td>key-value بأي نوع مفتاح | ترتيب محفوظ | size | Iterable ✅</td></tr><tr><td>Map vs Object</td><td>Map: مفاتيح ديناميكية وأداء أفضل | Object: بيانات ثابتة</td></tr><tr><td>Set</td><td>قيم فريدة | O(1) للبحث | [...new Set(arr)] لإزالة التكرار</td></tr><tr><td>Set Operations</td><td>union (spread) | intersection (filter+has) | difference</td></tr><tr><td>WeakMap</td><td>مفاتيح كائنات فقط | Garbage Collected | للبيانات الخاصة</td></tr><tr><td>WeakSet</td><td>عناصر كائنات فقط | لتتبع الكائنات المُعالَجة</td></tr><tr><td>Symbol</td><td>قيمة فريدة دائماً | كمفاتيح خاصة | Symbol.for() للمشترك</td></tr><tr><td>Well-known Symbols</td><td>Symbol.iterator | Symbol.toPrimitive | Symbol.hasInstance</td></tr><tr><td>Iterator Protocol</td><td>next() يُعيد {value, done} | [Symbol.iterator]() يُعيد iterator</td></tr><tr><td>Iterable Protocol</td><td>الكائن لديه [Symbol.iterator] → يعمل مع for...of وspread</td></tr><tr><td>function*</td><td>Generator Function — يُنتج Iterator تلقائياً</td></tr><tr><td>yield</td><td>يُوقِف الـ Generator ويُعيد قيمة | yield* للتفويض</td></tr><tr><td>next(value)</td><td>يرسل قيمة للـ Generator ليستأنف</td></tr><tr><td>Infinite Sequences</td><td>Generator آمن للتسلسلات اللانهائية — يُنتج عند الطلب فقط</td></tr><tr><td>Async Generator</td><td>async function* + for await...of — لجلب البيانات المُصفَّحة</td></tr></tbody></table></div><div class="subsection"><div class="sub-head"><h3>في الجلسة القادمة...</h3></div><div class="callout preview"><span class="callout-title">🔮 الجلسة السادسة عشرة: JavaScript الشامل — مراجعة وأحدث ميزات ES2023/2024</span><p>✦ مراجعة شاملة لكل JavaScript (جلسات 9-15)</p><p>✦ أحدث ميزات ES2023: Array.findLast, toSorted, toSpliced, with</p><p>✦ ES2024: Object.groupBy, Map.groupBy, Promise.withResolvers</p><p>✦ Error Cause وAbortSignal.timeout()</p><p>✦ Pattern Matching مع switch expressions</p><p>✦ Regular Expressions المتقدمة</p><p>✦ مشروع نهائي لمرحلة JavaScript: تطبيق متكامل يجمع كل ما تعلمناه</p></div></div></div>
+<div class="part homework"><div class="part-head"><span class="p-icon">🏠</span><h2>الواجب المنزلي — الجلسة الخامسة عشرة</h2></div><div class="callout info"><span class="callout-title">📅 موعد التسليم: قبل بداية الجلسة السادسة عشرة</span><p>يُرسَل مجلد المشروع (ملفات .js) أو رابط GitHub عبر القناة أو البريد الإلكتروني للمدرب</p></div><div class="subsection"><div class="sub-head"><h3>الواجب: بناء مكتبة Data Structures بـ ES Modules</h3></div><p class="blk-para">أنشئ مكتبة JavaScript كاملة تحتوي على هياكل بيانات متقدمة:</p><h4 class="mini-head">◆ 📦 الملفات المطلوبة:</h4><ul class="mini-list"><li>src/Stack.js — LIFO: push, pop, peek, isEmpty, [Symbol.iterator]</li><li>src/Queue.js — FIFO: enqueue, dequeue, front, isEmpty, [Symbol.iterator]</li><li>src/PriorityQueue.js — قائمة انتظار بأولوية: add(item, priority), poll()</li><li>src/Graph.js — رسم بياني: addNode, addEdge, بـ Map&lt;string, Set&lt;string&gt;&gt;</li><li>src/BiMap.js — خريطة ثنائية الاتجاه: set(k,v), getByKey, getByValue</li><li>src/index.js — Barrel يُصدّر الكل</li><li>demo/index.js — تجريب جميع الهياكل</li></ul><h4 class="mini-head">◆ 🔧 متطلبات تقنية:</h4><ul class="mini-list"><li>جميع الخصائص الداخلية private (#)</li><li>جميع الهياكل Iterable (Symbol.iterator)</li><li>Symbol.toPrimitive على Stack وQueue</li><li>معالجة أخطاء شاملة مع رسائل واضحة</li><li>Graph.js يحتوي BFS وDFS باستخدام Generators</li></ul><div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>معيار التقييم</th><th>الدرجة</th></tr></thead><tbody><tr><td>5 هياكل بيانات تعمل بشكل صحيح</td><td>40 نقطة</td></tr><tr><td>ES Modules صحيحة (import/export/barrel)</td><td>15 نقطة</td></tr><tr><td>Symbol.iterator على جميع الهياكل</td><td>15 نقطة</td></tr><tr><td>Generator BFS وDFS في Graph</td><td>15 نقطة</td></tr><tr><td>معالجة الأخطاء وجودة الكود</td><td>15 نقطة</td></tr></tbody></table></div></div></div>
+<div class="closing-banner">
+  <h3>🔧 أحسنت! كودك الآن منظّم ومعياري ومتقدم 🔧</h3>
+  <p>Modules + Generators + Map/Set = JavaScript الاحترافي الحقيقي</p>
+  <p class="attribution">Eng. Hasan Hajjar  |  Front-End Master Book  |  Session 15</p>
+</div>
+
+      <div class="complete-bar">
+        <button class="btn btn-primary" data-complete-btn>أكملت هذا الدرس</button>
+        <span style="color:var(--ink-faint); font-size:.85rem;">يُحفَظ تقدّمك محلياً في متصفحك</span>
+      </div>
+
+      <div class="lesson-nav">
+        <a class="nav-arrow prev" href="lesson-14.html"><small>السابق</small><span>الجلسة 14 — البرمجة الكائنية OOP</span></a>
+        <a class="nav-arrow next" href="lesson-16.html"><small>التالي</small><span>الجلسة 16 — مراجعة JavaScript الشاملة والمشروع النهائي</span></a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
