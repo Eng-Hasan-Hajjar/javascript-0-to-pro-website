@@ -19,6 +19,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/Eng-Hasan-Hajjar/javascript-0-to-pro-website?style=flat-square&color=yellow)
 ![GitHub forks](https://img.shields.io/github/forks/Eng-Hasan-Hajjar/javascript-0-to-pro-website?style=flat-square&color=green)
 ![Made with](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT%20%2B%20CC%20BY--NC--ND-blue?style=flat-square)
 ![Language](https://img.shields.io/badge/اللغة-العربية%20(RTL)-critical?style=flat-square)
 ![No Framework](https://img.shields.io/badge/HTML%2FCSS%2FJS%20Track-Zero%20Dependencies-brightgreen?style=flat-square)
 
@@ -203,7 +204,12 @@ javascript-0-to-pro-website/
 
 ## 📄 الترخيص
 
-لم يُحدَّد ترخيص بعد لهذا المستودع. جميع الحقوق محفوظة للمؤلف ما لم يُنصّ على خلاف ذلك — يُنصَح بإضافة ملف `LICENSE` يعكس رغبتك (مثل MIT للاستخدام التعليمي المفتوح، أو ترخيص أكثر تقييداً إن رغبت بحصر الاستخدام).
+هذا المشروع مرخَّص بترخيصين منفصلين حسب نوع المحتوى:
+
+- 🖥️ **الكود** (منصّة الموقع وآلياته التقنية) → [MIT License](./LICENSE-CODE) — مفتوح المصدر بالكامل
+- 📚 **المحتوى التعليمي** (نصوص الجلسات وشروحاتها) → [CC BY-NC-ND 4.0](./LICENSE-CONTENT) — للمشاهدة والمشاركة فقط، بلا تعديل أو استخدام تجاري
+
+التفاصيل الكاملة في [`LICENSE.md`](./LICENSE.md).
 
 ---
 
